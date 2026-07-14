@@ -116,13 +116,10 @@ export default function AdminCRM() {
     <div className="min-h-screen bg-surface">
       <header className="border-b border-border bg-navy-deep text-primary-foreground">
         <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/" className="grid h-9 w-9 place-items-center border-2 border-primary-foreground/60 font-serif text-base font-black">M</Link>
-            <div>
-              <div className="font-serif text-base font-black leading-tight">Med Injury Claims</div>
-              <div className="text-[10px] uppercase tracking-[0.2em] text-primary-foreground/70">CRM · Submissions</div>
-            </div>
-          </div>
+          <Link to="/" className="flex items-center">
+            <img src="/__l5e/assets-v1/06a79a3f-77b6-407f-bfab-d27d63adbafe/medinjuryclaims-logo.png" alt="Med Injury Claims" className="h-9 w-auto brightness-0 invert" />
+            <span className="ml-4 hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-primary-foreground/70 border-l border-primary-foreground/30 pl-4">CRM · Submissions</span>
+          </Link>
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline text-xs text-primary-foreground/70">{session?.user.email}</span>
             <Button variant="outline" size="sm" onClick={signOut} className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-navy">

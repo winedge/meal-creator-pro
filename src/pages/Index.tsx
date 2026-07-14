@@ -468,13 +468,7 @@ export default function Index() {
       <footer className="bg-navy-deep text-primary-foreground">
         <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center border-2 border-primary-foreground/50 font-serif text-lg font-black">M</div>
-              <div>
-                <div className="font-serif text-lg font-black">Med Injury Claims</div>
-                <div className="text-[10px] uppercase tracking-[0.2em] text-primary-foreground/60">Attorney Referral Service</div>
-              </div>
-            </div>
+            <img src={logo.url} alt="Med Injury Claims" className="h-10 w-auto brightness-0 invert" />
             <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
               Med Injury Claims helps individuals harmed by dangerous drugs, medical devices, or toxic exposures get connected to
               trusted legal professionals. We're not a law firm — we're your first step toward justice.
