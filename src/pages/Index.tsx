@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/medinjuryclaims-logo.png.asset.json";
 import courthouse from "@/assets/courthouse-hero.jpg";
 import consult from "@/assets/consult.jpg";
+import { Reveal } from "@/components/Reveal";
 
 const caseReviewSchema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(60),
@@ -178,7 +179,7 @@ export default function Index() {
         }}
       >
         <div className="container py-20 lg:py-28">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl animate-hero-in">
             <div className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-brand-red">
               Free · Confidential Case Review
             </div>
@@ -191,10 +192,10 @@ export default function Index() {
               Speak with a qualified attorney - at no cost and no obligation.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark">
+              <Button asChild size="lg" className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]">
                 <a href="#contact">Check If You Qualify</a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-navy">
+              <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-navy transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]">
                 <a href="#lawsuits">View Active Lawsuits</a>
               </Button>
             </div>
