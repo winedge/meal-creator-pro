@@ -11,8 +11,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/medinjuryclaims-logo.png.asset.json";
-import courthouse from "@/assets/courthouse-hero.jpg";
-import consult from "@/assets/consult.jpg";
+import heroImg from "@/assets/rideshare-hero.jpg";
+import passengerImg from "@/assets/rideshare-passenger.jpg";
 
 const schema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(60),
