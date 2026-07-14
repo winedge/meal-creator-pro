@@ -297,16 +297,19 @@ export default function Index() {
             </p>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {lawsuits.map((l, i) => (
-              <article key={l.t} className="border border-border bg-background p-6 shadow-sm transition hover:shadow-md">
-                <div className="font-serif text-xs font-bold text-brand-red">CASE {String(i + 1).padStart(2, "0")}</div>
-                <h3 className="mt-2 font-serif text-lg font-bold text-navy">{l.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
-                <a href="#contact" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red">
-                  Assess your case <ChevronRight className="h-4 w-4" />
-                </a>
-              </article>
-            ))}
+            {lawsuits.map((l, i) => {
+              const href = l.t === "Rideshare Abuse" ? "/rideshare-abuse" : "#contact";
+              return (
+                <article key={l.t} className="border border-border bg-background p-6 shadow-sm transition hover:shadow-md">
+                  <div className="font-serif text-xs font-bold text-brand-red">CASE {String(i + 1).padStart(2, "0")}</div>
+                  <h3 className="mt-2 font-serif text-lg font-bold text-navy">{l.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
+                  <a href={href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red">
+                    {l.t === "Rideshare Abuse" ? "Learn more" : "Assess your case"} <ChevronRight className="h-4 w-4" />
+                  </a>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
