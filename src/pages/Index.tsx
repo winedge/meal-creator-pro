@@ -335,46 +335,64 @@ export default function Index() {
             </p>
           </div>
 
+          {submitted ? (
+            <div className="mt-10 border border-border bg-background p-8 text-center shadow-sm sm:p-14">
+              <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand-red/10 text-brand-red">
+                <Check className="h-7 w-7" />
+              </div>
+              <h3 className="mt-6 font-serif text-2xl font-black text-navy">Request received</h3>
+              <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+                Thank you — a case specialist will contact you within 24 hours to discuss your potential claim.
+                Please keep an eye on your phone and email.
+              </p>
+              <p className="mt-6 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                Reference: {certRef || "pending"}
+              </p>
+            </div>
+          ) : (
           <form onSubmit={onSubmit} className="mt-10 border border-border bg-background p-6 shadow-sm sm:p-10">
             <h3 className="font-serif text-2xl font-black text-navy">Case Review</h3>
+            {/* TrustedForm auto-populated hidden fields */}
+            <input type="hidden" name="xxTrustedFormCertUrl" defaultValue="" />
+            <input type="hidden" name="xxTrustedFormPingUrl" defaultValue="" />
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="fname" className="text-navy">First Name <span className="text-brand-red">*</span></Label>
-                <Input id="fname" required placeholder="First Name" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                <Input id="fname" name="firstName" required placeholder="First Name" maxLength={60} className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="lname" className="text-navy">Last Name <span className="text-brand-red">*</span></Label>
-                <Input id="lname" required placeholder="Last Name" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                <Input id="lname" name="lastName" required placeholder="Last Name" maxLength={60} className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="email" className="text-navy">Email <span className="text-brand-red">*</span></Label>
-                <Input id="email" required type="email" placeholder="Email" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                <Input id="email" name="email" required type="email" placeholder="Email" maxLength={255} className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="phone" className="text-navy">Phone / Mobile <span className="text-brand-red">*</span></Label>
-                <Input id="phone" required type="tel" placeholder="Mobile Number" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                <Input id="phone" name="phone" required type="tel" placeholder="Mobile Number" maxLength={25} className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
               <div className="space-y-1.5 sm:col-span-2">
                 <Label htmlFor="address" className="text-navy">Address</Label>
-                <Input id="address" placeholder="Address Line 1" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                <Input id="address" name="address" placeholder="Address Line 1" maxLength={200} className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="city" className="text-navy">City</Label>
-                <Input id="city" placeholder="City" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                <Input id="city" name="city" placeholder="City" maxLength={80} className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <Label htmlFor="state" className="text-navy">State</Label>
-                  <Input id="state" placeholder="State" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                  <Input id="state" name="state" placeholder="State" maxLength={40} className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="zip" className="text-navy">Zip Code <span className="text-brand-red">*</span></Label>
-                  <Input id="zip" required placeholder="Zip" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                  <Input id="zip" name="zip" required placeholder="Zip" maxLength={12} className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
                 </div>
               </div>
               <div className="space-y-1.5">
                 <Label className="text-navy">Type of claim <span className="text-brand-red">*</span></Label>
-                <Select>
+                <Select name="claimType">
                   <SelectTrigger className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none">
                     <SelectValue placeholder="- Select -" />
                   </SelectTrigger>
@@ -390,7 +408,7 @@ export default function Index() {
               </div>
               <div className="space-y-1.5">
                 <Label className="text-navy">State where incident occurred</Label>
-                <Select>
+                <Select name="incidentState">
                   <SelectTrigger className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none">
                     <SelectValue placeholder="- Select -" />
                   </SelectTrigger>
@@ -403,10 +421,10 @@ export default function Index() {
               </div>
               <div className="space-y-1.5 sm:col-span-2">
                 <Label htmlFor="desc" className="text-navy">Brief Description (Optional)</Label>
-                <Textarea id="desc" rows={4} placeholder="Please describe what happened briefly (optional)" className="rounded-none border-border" />
+                <Textarea id="desc" name="description" rows={4} maxLength={1000} placeholder="Please describe what happened briefly (optional)" className="rounded-none border-border" />
               </div>
               <div className="sm:col-span-2 flex items-start gap-3 pt-2">
-                <Checkbox id="consent" required className="mt-1" />
+                <Checkbox id="consent" name="consent" required className="mt-1" />
                 <Label htmlFor="consent" className="text-xs font-normal leading-relaxed text-muted-foreground">
                   By checking the box, you agree to be contacted about your potential case or promotional legal offers sent by or on
                   behalf of Med Injury Claims and/or participating law firms. You may receive live calls, automated calls, emails, or
@@ -419,8 +437,10 @@ export default function Index() {
               Submit
             </Button>
           </form>
+          )}
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="bg-navy-deep text-primary-foreground">
