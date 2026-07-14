@@ -1,422 +1,423 @@
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Check, Pill, Stethoscope, ShieldAlert, Scale, FileText, Users, MapPin, ClipboardCheck } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Circle, Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
 import heroImg from "@/assets/hero-still-life.jpg";
-import attorneyImg from "@/assets/attorney-portrait.jpg";
 
-const caseCategories = [
-  { icon: Pill, title: "Defective Medications", desc: "Claims tied to unsafe drugs, mislabeled prescriptions, and undisclosed side effects." },
-  { icon: Stethoscope, title: "Medical Device Failure", desc: "Injuries involving implants, catheters, and hardware malfunctions." },
-  { icon: ShieldAlert, title: "Manufacturer Negligence", desc: "Matters involving warning, design, and safety failures across product lines." },
+// Editorial magazine layout — dark ink, bone type, ember accents.
+// Structure: fixed left rail + right-rail dossier index, giant asymmetric masthead,
+// numbered "brief", ticker marquee, dossier table, editor's letter, endnote CTA.
+
+const dossiers = [
+  { no: "N° 01", title: "Defective medications", meta: "MDL · Active", body: "Unsafe drugs, mislabeled prescriptions, and undisclosed side effects — filed across 27 jurisdictions this quarter." },
+  { no: "N° 02", title: "Medical device failure", meta: "Class III · Ongoing", body: "Implants, catheters, and hardware malfunctions with documented revision surgery outcomes." },
+  { no: "N° 03", title: "Manufacturer negligence", meta: "Consumer · Open", body: "Warning, design, and safety failures across pharmaceutical and consumer product lines." },
+  { no: "N° 04", title: "Port catheter matters", meta: "Device · New", body: "Migration, fracture, and device-related failures under active review with partner counsel." },
 ];
 
-const steps = [
-  { n: "01", title: "Share the basics", desc: "Submit your name, contact, and a short summary so our team can assess fit and urgency." },
-  { n: "02", title: "Review case signals", desc: "Our intake specialists compare your submission against active litigation criteria." },
-  { n: "03", title: "Route to counsel", desc: "Qualified claims move to attorney follow-up. Informational leads continue with educational resources." },
-  { n: "04", title: "Stay informed", desc: "Ongoing updates, litigation summaries, and briefings keep you engaged after first contact." },
-];
-
-const lawsuits = [
-  { tag: "Medical device", title: "Port catheter complications", desc: "Potential claims related to catheter defects, migration, fracture, or device-related failures." },
-  { tag: "Pharmaceutical", title: "Dangerous drug injuries", desc: "Side effects, inadequate warnings, contamination, and delayed regulatory response." },
-  { tag: "Implant litigation", title: "Defective implant claims", desc: "Consumer injury matters involving mechanical failure, erosion, revision surgery, or design defects." },
-  { tag: "Consumer protection", title: "Negligence-related harm", desc: "Manufacturer misconduct, missing disclosures, or avoidable safety failures." },
-];
-
-const updates = [
-  { date: "Dec 17, 2025", title: "Port catheter motions signal case momentum", desc: "Procedural activity in MDL-related matters points to a strong engagement window for claimants researching device complications." },
-  { date: "Dec 17, 2025", title: "Drug discovery coverage drives educational traffic", desc: "Not every update reports on a new lawsuit — broader pharmaceutical safety reporting keeps the page informative and current." },
-  { date: "Dec 16, 2025", title: "Multi-state actions show the value of timely intake", desc: "Fast-moving litigation environments reward landing pages that explain developments clearly and route visitors toward next steps." },
-];
-
-const stats = [
-  { k: "50", label: "States served" },
-  { k: "3-step", label: "Claimant intake" },
-  { k: "24hr", label: "Median follow-up" },
-  { k: "100%", label: "Confidential review" },
+const brief = [
+  { n: "01", label: "Signal", body: "Claimant submits a two-minute intake with product, timeline, and injury detail." },
+  { n: "02", label: "Screen", body: "Intake specialists cross-check against active litigation criteria within 24 hours." },
+  { n: "03", label: "Route", body: "Qualified matters move to counsel licensed in the claimant's jurisdiction." },
+  { n: "04", label: "Follow", body: "Case updates, litigation briefings, and educational resources continue post-contact." },
 ];
 
 const nav = [
-  { label: "Why us", href: "#why" },
-  { label: "Process", href: "#process" },
-  { label: "Lawsuits", href: "#lawsuits" },
-  { label: "Updates", href: "#updates" },
-  { label: "Contact", href: "#contact" },
+  ["00", "Masthead", "#top"],
+  ["01", "Brief", "#brief"],
+  ["02", "Dossiers", "#dossiers"],
+  ["03", "Letter", "#letter"],
+  ["04", "Contact", "#contact"],
+];
+
+const marqueeItems = [
+  "Defective medications",
+  "Port catheter litigation",
+  "Consumer protection",
+  "Medical device failure",
+  "Pharmaceutical injury",
+  "Manufacturer negligence",
+  "Implant revision claims",
+  "Nationwide intake",
+];
+
+const faqs = [
+  { q: "Is a case review actually free?", a: "Yes. Every submission is reviewed at no cost. You are under no obligation to proceed after intake." },
+  { q: "How long does intake take?", a: "About two minutes. Our specialists respond within one business day with next steps or referral." },
+  { q: "Do I need documentation ready?", a: "No. If your matter moves to counsel, they will guide you through what records to gather." },
+  { q: "Which states do you cover?", a: "All 50. We route claims to partner firms licensed in the claimant's jurisdiction." },
 ];
 
 export default function Index() {
-  const [open, setOpen] = useState<string | undefined>("item-0");
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Review request received", {
-      description: "A member of our intake team will reach out within one business day.",
+    toast.success("Filed. Editor's review begins now.", {
+      description: "Expect a reply within one business day.",
     });
     (e.target as HTMLFormElement).reset();
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Nav */}
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-md">
-        <div className="container flex h-16 items-center justify-between">
-          <a href="#" className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-md bg-ink text-cream">
-              <Scale className="h-4 w-4" />
-            </span>
-            <div className="leading-tight">
-              <div className="font-serif text-lg font-semibold text-ink">Med Injury Claims</div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">Legal intake, done well</div>
-            </div>
-          </a>
-          <nav className="hidden items-center gap-8 md:flex">
-            {nav.map((n) => (
-              <a key={n.href} href={n.href} className="text-sm font-medium text-ink-soft transition-colors hover:text-ink">
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <Button asChild className="rounded-full bg-clay text-accent-foreground shadow-soft hover:bg-clay-deep">
-            <a href="#contact">Start a case review <ArrowRight className="ml-1 h-4 w-4" /></a>
-          </Button>
+    <div id="top" className="min-h-screen bg-background text-foreground selection:bg-ember selection:text-ink">
+      {/* Fixed left rail — masthead identity */}
+      <aside className="pointer-events-none fixed inset-y-0 left-0 z-30 hidden w-16 flex-col items-center justify-between border-r border-border py-6 lg:flex">
+        <div className="pointer-events-auto flex flex-col items-center gap-3">
+          <span className="grid h-9 w-9 place-items-center border border-border font-serif text-lg italic text-bone">M</span>
+          <div className="rule h-6 w-px" />
         </div>
-      </header>
+        <div className="pointer-events-auto -rotate-90 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+          Med Injury Claims · Vol. XII
+        </div>
+        <div className="pointer-events-auto font-mono text-[10px] uppercase tracking-widest text-muted-foreground">ISSN</div>
+      </aside>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] bg-gradient-to-b from-cream-deep/70 via-background to-background" />
-        <div className="container grid gap-10 pt-14 pb-20 lg:grid-cols-[1.15fr_1fr] lg:gap-14 lg:pt-24 lg:pb-28">
-          <div className="animate-fade-up">
-            <span className="eyebrow"><span className="h-1.5 w-1.5 rounded-full bg-clay" /> Claimant intake, rebuilt</span>
-            <h1 className="mt-6 font-serif text-5xl leading-[0.98] tracking-tight text-ink sm:text-6xl lg:text-7xl">
-              Connect injured consumers with the right{" "}
-              <span className="italic text-clay">legal team</span> — faster.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
-              Med Injury Claims is a modern intake experience for law firms handling pharmaceutical injury,
-              defective device, and negligence matters. Built for clarity, trust, and conversion — without the
-              overhead of legacy plugins.
-            </p>
+      {/* Fixed right rail — index nav */}
+      <aside className="pointer-events-none fixed inset-y-0 right-0 z-30 hidden w-16 flex-col items-center justify-center gap-6 border-l border-border py-6 xl:flex">
+        <div className="pointer-events-auto flex flex-col items-center gap-5">
+          {nav.map(([n, , href]) => (
+            <a key={n} href={href} className="group flex flex-col items-center gap-1">
+              <Circle className="h-1.5 w-1.5 fill-muted-foreground text-muted-foreground transition-all group-hover:fill-ember group-hover:text-ember" />
+              <span className="font-mono text-[10px] text-muted-foreground group-hover:text-bone">{n}</span>
+            </a>
+          ))}
+        </div>
+      </aside>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button asChild size="lg" className="h-12 rounded-full bg-ink px-6 text-cream hover:bg-ink/90">
-                <a href="#contact">Request a case review <ArrowRight className="ml-1.5 h-4 w-4" /></a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="h-12 rounded-full border-ink/20 bg-transparent px-6 text-ink hover:bg-ink/5">
-                <a href="#lawsuits">Browse active lawsuits</a>
-              </Button>
+      <div className="lg:pl-16 xl:pr-16">
+        {/* Top strip */}
+        <div className="border-b border-border">
+          <div className="container flex h-11 items-center justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="hidden sm:block">Confidential legal intake · Est. 2013</div>
+            <div className="flex items-center gap-6">
+              <span>Nationwide · 50 states</span>
+              <span className="hidden md:inline">24hr median reply</span>
+              <a href="#contact" className="text-bone hover:text-ember">File a claim →</a>
             </div>
+          </div>
+        </div>
 
-            <dl className="mt-12 grid grid-cols-2 gap-6 border-t border-border pt-8 sm:grid-cols-4">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <dt className="font-serif text-3xl font-semibold text-ink">{s.k}</dt>
-                  <dd className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{s.label}</dd>
-                </div>
+        {/* Nav strip */}
+        <div className="border-b border-border">
+          <div className="container flex h-14 items-center justify-between">
+            <a href="#top" className="font-serif text-xl font-semibold tracking-tight text-bone">
+              Med Injury <span className="italic text-ember">Claims</span>
+            </a>
+            <nav className="hidden items-center gap-8 md:flex">
+              {nav.slice(1).map(([n, label, href]) => (
+                <a key={href} href={href} className="group flex items-baseline gap-1.5 text-sm text-bone-soft hover:text-bone">
+                  <span className="font-mono text-[10px] text-muted-foreground group-hover:text-ember">{n}</span>
+                  {label}
+                </a>
               ))}
-            </dl>
-          </div>
-
-          {/* Hero card cluster */}
-          <div className="relative">
-            <div className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-card">
-              <img
-                src={heroImg}
-                alt="Legal documents, fountain pen, and pill bottle in warm editorial light"
-                width={1200}
-                height={1408}
-                className="h-[420px] w-full object-cover"
-              />
-              <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-background/95 p-5 shadow-soft backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <img src={attorneyImg} alt="Intake specialist" width={48} height={48} className="h-11 w-11 rounded-full object-cover" loading="lazy" />
-                  <div>
-                    <div className="text-sm font-semibold text-ink">Reviewed by legal intake specialists</div>
-                    <div className="text-xs text-muted-foreground">Every submission is confidentially assessed within 24 hours.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-5 rounded-3xl border border-border bg-card p-5 shadow-soft">
-              <div className="mb-3 flex items-center justify-between">
-                <div className="eyebrow">Focus areas</div>
-                <span className="text-xs text-muted-foreground">Tap to expand</span>
-              </div>
-              <Accordion type="single" collapsible value={open} onValueChange={setOpen} className="divide-y divide-border">
-                {caseCategories.map((c, i) => (
-                  <AccordionItem key={c.title} value={`item-${i}`} className="border-none">
-                    <AccordionTrigger className="py-4 hover:no-underline">
-                      <div className="flex items-center gap-3 text-left">
-                        <span className="grid h-9 w-9 place-items-center rounded-lg bg-secondary text-ink">
-                          <c.icon className="h-4 w-4" />
-                        </span>
-                        <span className="font-medium text-ink">{c.title}</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pl-12 text-sm text-ink-soft">{c.desc}</AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
+            </nav>
+            <Button asChild className="h-10 rounded-none bg-ember px-5 font-mono text-[11px] uppercase tracking-[0.2em] text-ink hover:bg-ember-deep">
+              <a href="#contact">Start intake</a>
+            </Button>
           </div>
         </div>
-      </section>
 
-      {/* Why */}
-      <section id="why" className="border-t border-border bg-secondary/40 py-24">
-        <div className="container">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-            <div>
-              <span className="eyebrow">Why claimants convert</span>
-              <h2 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-                Your path to legal representation, made clear.
-              </h2>
-              <p className="mt-5 max-w-md text-ink-soft">
-                Injured consumers need a straightforward route to counsel. Every element of this experience is designed
-                to reduce friction, build trust, and route the right claim to the right attorney.
-              </p>
+        {/* MASTHEAD — asymmetric 12-col */}
+        <section className="relative border-b border-border">
+          <div className="container relative py-16 lg:py-24">
+            {/* meta row */}
+            <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              <div className="flex items-center gap-4">
+                <span className="text-ember">●</span>
+                <span>Volume XII</span>
+                <span>·</span>
+                <span>Issue 04</span>
+                <span>·</span>
+                <span>Winter 2026</span>
+              </div>
+              <div>Filed under: Pharmaceutical · Device · Negligence</div>
             </div>
-            <div className="grid gap-4 sm:grid-cols-3">
+
+            <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-8">
+              {/* Headline (spans 8) */}
+              <div className="lg:col-span-8">
+                <h1 className="font-serif text-[13vw] font-medium leading-[0.86] tracking-[-0.03em] text-bone sm:text-[9vw] lg:text-[8.2vw]">
+                  Injured by a<br />
+                  product?<br />
+                  <span className="italic text-ember">Find</span> counsel.
+                </h1>
+              </div>
+
+              {/* Right column: dek + still-life */}
+              <div className="flex flex-col justify-between gap-8 lg:col-span-4">
+                <div className="border-l border-border pl-5">
+                  <div className="kicker mb-3">The dek</div>
+                  <p className="font-serif text-lg leading-snug text-bone-soft">
+                    A modern intake desk for pharmaceutical injury, defective devices, and
+                    manufacturer negligence — reported like a magazine, filed like a case.
+                  </p>
+                </div>
+
+                <figure className="relative">
+                  <img
+                    src={heroImg}
+                    alt="Editorial still-life: legal documents and prescription bottle"
+                    width={1200}
+                    height={1408}
+                    className="aspect-[4/5] w-full object-cover grayscale-[15%]"
+                  />
+                  <figcaption className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    Fig. 01 — Evidence, awaiting review
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            {/* Byline / stats strip */}
+            <div className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-border pt-10 md:grid-cols-4">
               {[
-                { icon: Scale, title: "Expert legal guidance", desc: "A direct route to request help, ask questions, and understand whether an injury meets active screening criteria." },
-                { icon: ClipboardCheck, title: "Streamlined screening", desc: "A clear intake path that routes claimants toward the firm or campaign best suited to the case details you provide." },
-                { icon: FileText, title: "Educational resources", desc: "Plain-language explanations around injuries, product failures, and documentation that may be useful during review." },
-              ].map((f, i) => (
-                <div key={f.title} className="group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-card">
-                  <div className="mb-4 flex items-center justify-between">
-                    <span className="grid h-10 w-10 place-items-center rounded-lg bg-ink text-cream"><f.icon className="h-4 w-4" /></span>
-                    <span className="font-serif text-sm text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
-                  </div>
-                  <h3 className="font-serif text-xl text-ink">{f.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{f.desc}</p>
+                ["50", "States served"],
+                ["24hr", "Median reply"],
+                ["2min", "Intake length"],
+                ["100%", "Confidential"],
+              ].map(([k, l]) => (
+                <div key={l} className="flex items-baseline gap-4">
+                  <div className="font-serif text-5xl font-medium text-bone">{k}</div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{l}</div>
                 </div>
               ))}
             </div>
           </div>
+        </section>
 
-          {/* CTA band */}
-          <div className="mt-16 flex flex-col items-start justify-between gap-6 rounded-3xl bg-ink p-8 text-cream shadow-card sm:flex-row sm:items-center sm:p-10">
-            <div>
-              <h3 className="font-serif text-2xl sm:text-3xl">Find the right attorney today.</h3>
-              <p className="mt-2 max-w-xl text-sm text-cream/75">
-                You may be eligible for compensation. Use the intake form below to start a confidential case review.
-              </p>
-            </div>
-            <Button asChild size="lg" className="h-12 rounded-full bg-clay px-6 text-accent-foreground hover:bg-clay-deep">
-              <a href="#contact">Start review <ArrowRight className="ml-1.5 h-4 w-4" /></a>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Process */}
-      <section id="process" className="py-24">
-        <div className="container">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">Simple workflow</span>
-            <h2 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">How the intake process works.</h2>
-            <p className="mt-5 text-ink-soft">Four dependable steps — designed to route claims accurately across desktop and mobile without third-party dependencies.</p>
-          </div>
-
-          <div className="relative mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s, i) => (
-              <div key={s.n} className="relative rounded-2xl border border-border bg-card p-6 shadow-soft">
-                <div className="mb-5 flex items-center justify-between">
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-ink font-serif text-sm text-cream">{i + 1}</span>
-                  {i < steps.length - 1 && <ArrowRight className="hidden h-4 w-4 text-muted-foreground lg:block" />}
-                </div>
-                <h3 className="font-serif text-lg text-ink">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{s.desc}</p>
-              </div>
+        {/* Ticker marquee */}
+        <section aria-hidden className="overflow-hidden border-b border-border bg-bone text-ink">
+          <div className="marquee-track flex whitespace-nowrap py-4">
+            {[...marqueeItems, ...marqueeItems].map((t, i) => (
+              <span key={i} className="mx-8 flex items-center gap-8 font-serif text-2xl italic">
+                {t}
+                <span className="text-ember">✦</span>
+              </span>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Lawsuits */}
-      <section id="lawsuits" className="border-t border-border bg-secondary/40 py-24">
-        <div className="container">
-          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-            <div className="max-w-2xl">
-              <span className="eyebrow">Active lawsuits</span>
-              <h2 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">Browse current case categories.</h2>
-              <p className="mt-4 text-ink-soft">A curated view of active litigation lanes we route claimants into. Categories are updated as new cases open.</p>
+        {/* BRIEF — numbered horizontal ledger */}
+        <section id="brief" className="border-b border-border">
+          <div className="container py-20 lg:py-28">
+            <div className="grid gap-8 lg:grid-cols-12">
+              <div className="lg:col-span-4">
+                <div className="kicker">Section 01 — The Brief</div>
+                <h2 className="mt-4 font-serif text-5xl leading-[0.95] tracking-tight text-bone lg:text-6xl">
+                  How a claim moves from <span className="italic text-ember">signal</span> to counsel.
+                </h2>
+                <p className="mt-6 max-w-sm text-bone-soft">
+                  Four movements. No plugins. No dead ends. Every submission is triaged by a human intake
+                  specialist within one business day.
+                </p>
+              </div>
+
+              <ol className="lg:col-span-8">
+                {brief.map((b, i) => (
+                  <li
+                    key={b.n}
+                    className="group relative grid grid-cols-12 gap-4 border-t border-border py-8 last:border-b hover:bg-secondary/40"
+                  >
+                    <div className="col-span-2 font-mono text-xs text-muted-foreground">{b.n}</div>
+                    <div className="col-span-3 font-serif text-2xl italic text-bone">{b.label}</div>
+                    <div className="col-span-6 text-bone-soft">{b.body}</div>
+                    <div className="col-span-1 flex justify-end text-muted-foreground transition-colors group-hover:text-ember">
+                      <ArrowUpRight className="h-5 w-5" />
+                    </div>
+                    {i === brief.length - 1 && (
+                      <span className="absolute -bottom-2 right-0 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                        — end of brief
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ol>
             </div>
-            <Button variant="outline" className="rounded-full border-ink/20 bg-card hover:bg-ink/5">
-              View all intake options <ArrowUpRight className="ml-1 h-4 w-4" />
-            </Button>
           </div>
+        </section>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {lawsuits.map((l) => (
-              <article key={l.title} className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-card">
-                <div>
-                  <h3 className="font-serif text-xl text-ink">{l.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-soft">{l.desc}</p>
-                </div>
-                <div className="mt-6 flex items-center justify-between">
-                  <span className="inline-flex items-center rounded-full bg-clay/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-clay-deep">{l.tag}</span>
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-ink" />
+        {/* DOSSIERS — table style */}
+        <section id="dossiers" className="border-b border-border bg-secondary/30">
+          <div className="container py-20 lg:py-28">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <div className="kicker">Section 02 — Dossiers</div>
+                <h2 className="mt-4 font-serif text-5xl leading-[0.95] tracking-tight text-bone lg:text-6xl">
+                  Currently under <span className="italic text-ember">review</span>.
+                </h2>
+              </div>
+              <a href="#contact" className="group inline-flex items-center gap-2 border-b border-bone pb-1 font-mono text-xs uppercase tracking-[0.22em] text-bone">
+                Request a dossier <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+              </a>
+            </div>
+
+            <div className="mt-12 border-t border-border">
+              {dossiers.map((d) => (
+                <a
+                  href="#contact"
+                  key={d.no}
+                  className="group grid grid-cols-12 items-baseline gap-4 border-b border-border py-8 transition-colors hover:bg-background"
+                >
+                  <div className="col-span-12 font-mono text-xs text-muted-foreground md:col-span-1">{d.no}</div>
+                  <h3 className="col-span-12 font-serif text-3xl text-bone md:col-span-5 lg:text-4xl">
+                    <span className="border-b border-transparent transition-colors group-hover:border-ember">{d.title}</span>
+                  </h3>
+                  <p className="col-span-12 text-sm leading-relaxed text-bone-soft md:col-span-4">{d.body}</p>
+                  <div className="col-span-10 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:col-span-1">{d.meta}</div>
+                  <div className="col-span-2 flex justify-end text-muted-foreground group-hover:text-ember md:col-span-1">
+                    <ArrowUpRight className="h-6 w-6" />
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* EDITOR'S LETTER + FAQ split */}
+        <section id="letter" className="border-b border-border">
+          <div className="container py-20 lg:py-28">
+            <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
+              {/* Letter */}
+              <article className="lg:col-span-7">
+                <div className="kicker">Section 03 — Editor's letter</div>
+                <p className="mt-8 font-serif text-4xl leading-[1.1] text-bone lg:text-5xl">
+                  <span className="float-left mr-3 mt-1 font-serif text-8xl font-semibold leading-none text-ember">L</span>
+                  egal aid should read the way a good essay reads — plainly, patiently, and with respect for
+                  the reader's time. This page is our attempt at that. No third-party plugins to break, no
+                  buried disclosures, no theatrics. Just a clear route from an injury you didn't ask for to
+                  an attorney who takes it seriously.
+                </p>
+                <div className="mt-10 flex items-center gap-4 border-t border-border pt-6">
+                  <div className="h-10 w-10 rounded-full bg-ember" />
+                  <div>
+                    <div className="font-serif italic text-bone">— The intake desk</div>
+                    <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Med Injury Claims</div>
+                  </div>
                 </div>
               </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Updates */}
-      <section id="updates" className="py-24">
-        <div className="container">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
-            <div>
-              <span className="eyebrow">Latest updates</span>
-              <h2 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">Publish clear legal insights, without the plugin overhead.</h2>
-              <p className="mt-5 text-ink-soft">Editorial-style content keeps injured consumers informed — and keeps your page ranking for the case types your firm is actively pursuing.</p>
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {updates.map((u) => (
-                <article key={u.title} className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-card">
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-clay-deep">{u.date}</div>
-                    <h3 className="mt-3 font-serif text-lg leading-snug text-ink">{u.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">{u.desc}</p>
-                  </div>
-                  <a href="#" className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-ink hover:text-clay-deep">
-                    Read insight <ArrowRight className="h-3.5 w-3.5" />
-                  </a>
-                </article>
-              ))}
+              {/* FAQ */}
+              <div className="lg:col-span-5">
+                <div className="kicker">Reader questions</div>
+                <div className="mt-6 border-t border-border">
+                  {faqs.map((f, i) => {
+                    const open = openFaq === i;
+                    return (
+                      <div key={f.q} className="border-b border-border">
+                        <button
+                          onClick={() => setOpenFaq(open ? null : i)}
+                          className="flex w-full items-start justify-between gap-4 py-5 text-left"
+                        >
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-[10px] text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
+                            <span className="font-serif text-xl text-bone">{f.q}</span>
+                          </div>
+                          <span className="mt-1 text-ember">{open ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}</span>
+                        </button>
+                        {open && <p className="pb-6 pl-10 pr-8 text-sm leading-relaxed text-bone-soft">{f.a}</p>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact */}
-      <section id="contact" className="border-t border-border bg-secondary/40 py-24">
-        <div className="container">
-          <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr] lg:gap-14">
-            <div>
-              <span className="eyebrow">Free case review</span>
-              <h2 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">Request a review, or adapt this page to your intake workflow.</h2>
-              <p className="mt-5 text-ink-soft">
-                This form validates input on-page and confirms receipt instantly. Wire the endpoint to your CRM or intake API when you're ready to go live.
+        {/* ENDNOTE — Contact / intake */}
+        <section id="contact" className="border-b border-border bg-bone text-ink">
+          <div className="container grid gap-12 py-20 lg:grid-cols-12 lg:gap-8 lg:py-28">
+            <div className="lg:col-span-6">
+              <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-ink/60">
+                <span className="text-ember">●</span> Endnote — File your claim
+              </div>
+              <h2 className="mt-6 font-serif text-6xl leading-[0.92] tracking-tight lg:text-7xl">
+                Two minutes.<br />
+                <span className="italic">One reply,</span> by tomorrow.
+              </h2>
+              <p className="mt-6 max-w-md text-ink/70">
+                Submissions land at our intake desk directly. If your matter fits an active dossier, a
+                specialist walks you through the next step. If not, we say so — plainly.
               </p>
 
-              <div className="mt-8 space-y-4">
+              <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-ink/15 pt-8">
                 {[
-                  { icon: Users, title: "For claimants", desc: "Share what happened, the product involved, and when the injury or complication occurred." },
-                  { icon: Scale, title: "For law firms", desc: "Use this page as a clean front-end for campaign-specific screening and follow-up automation." },
-                  { icon: MapPin, title: "Nationwide coverage", desc: "Intake routing works across state lines — matched to firms licensed in your jurisdiction." },
-                ].map((item) => (
-                  <div key={item.title} className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-ink text-cream">
-                      <item.icon className="h-4 w-4" />
-                    </span>
-                    <div>
-                      <div className="font-semibold text-ink">{item.title}</div>
-                      <p className="mt-1 text-sm text-ink-soft">{item.desc}</p>
-                    </div>
+                  ["No cost", "Every review is free."],
+                  ["No obligation", "You choose the next step."],
+                  ["Private", "We never sell submissions."],
+                  ["Nationwide", "All 50 states."],
+                ].map(([k, v]) => (
+                  <div key={k}>
+                    <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/60">{k}</dt>
+                    <dd className="mt-1 font-serif text-lg">{v}</dd>
                   </div>
                 ))}
-              </div>
+              </dl>
             </div>
 
-            <form onSubmit={onSubmit} className="rounded-3xl border border-border bg-card p-8 shadow-card">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Full name</Label>
-                  <Input id="name" required placeholder="Jordan Smith" className="h-11 rounded-lg bg-background" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email address</Label>
-                  <Input id="email" type="email" required placeholder="name@example.com" className="h-11 rounded-lg bg-background" />
-                </div>
-                <div className="space-y-2 sm:col-span-2">
-                  <Label htmlFor="phone">Phone (optional)</Label>
-                  <Input id="phone" type="tel" placeholder="(555) 123-4567" className="h-11 rounded-lg bg-background" />
-                </div>
-                <div className="space-y-2 sm:col-span-2">
-                  <Label htmlFor="category">Case category</Label>
-                  <Select>
-                    <SelectTrigger id="category" className="h-11 rounded-lg bg-background">
-                      <SelectValue placeholder="Select one" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="medications">Defective medications</SelectItem>
-                      <SelectItem value="device">Medical device failure</SelectItem>
-                      <SelectItem value="implant">Defective implant</SelectItem>
-                      <SelectItem value="negligence">Manufacturer negligence</SelectItem>
-                      <SelectItem value="other">Something else</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2 sm:col-span-2">
-                  <Label htmlFor="summary">Brief case summary</Label>
-                  <Textarea id="summary" required rows={5} placeholder="Describe the injury, product involved, and any timeline details you want reviewed." className="rounded-lg bg-background" />
-                </div>
+            <form onSubmit={onSubmit} className="border-t border-ink/15 pt-8 lg:col-span-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink/60">Intake — 01/04</div>
+              <div className="mt-6 space-y-6">
+                <label className="block">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/60">Full name</span>
+                  <Input required placeholder="Jordan Smith" className="mt-2 h-12 rounded-none border-x-0 border-t-0 border-b border-ink/25 bg-transparent px-0 font-serif text-xl text-ink placeholder:text-ink/30 focus-visible:border-ember focus-visible:ring-0" />
+                </label>
+                <label className="block">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/60">Email</span>
+                  <Input required type="email" placeholder="name@example.com" className="mt-2 h-12 rounded-none border-x-0 border-t-0 border-b border-ink/25 bg-transparent px-0 font-serif text-xl text-ink placeholder:text-ink/30 focus-visible:border-ember focus-visible:ring-0" />
+                </label>
+                <label className="block">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/60">Case summary</span>
+                  <Textarea required rows={4} placeholder="What happened, which product, and when." className="mt-2 resize-none rounded-none border-x-0 border-t-0 border-b border-ink/25 bg-transparent px-0 font-serif text-lg text-ink placeholder:text-ink/30 focus-visible:border-ember focus-visible:ring-0" />
+                </label>
               </div>
-              <Button type="submit" size="lg" className="mt-6 h-12 w-full rounded-full bg-clay text-accent-foreground hover:bg-clay-deep">
-                Submit review request <ArrowRight className="ml-1.5 h-4 w-4" />
+              <Button type="submit" className="mt-10 h-14 w-full rounded-none bg-ink font-mono text-[12px] uppercase tracking-[0.28em] text-bone hover:bg-ink/90">
+                File the claim <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <p className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
-                <Check className="h-3.5 w-3.5 text-clay" /> Submissions are private. No data is sold or shared with third parties.
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/50">
+                By filing, you agree to a confidential review only. No obligation.
               </p>
             </form>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border bg-background">
-        <div className="container grid gap-10 py-16 lg:grid-cols-[1.4fr_1fr_1fr]">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-md bg-ink text-cream">
-                <Scale className="h-4 w-4" />
-              </span>
-              <span className="font-serif text-lg font-semibold text-ink">Med Injury Claims</span>
+        {/* COLOPHON footer */}
+        <footer className="border-b border-border">
+          <div className="container grid gap-10 py-14 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <div className="font-serif text-3xl italic text-bone">Med Injury Claims</div>
+              <p className="mt-3 max-w-sm text-sm text-bone-soft">
+                An editorial-grade legal intake desk. Volume XII in continuous publication.
+              </p>
             </div>
-            <p className="mt-4 max-w-md text-sm text-ink-soft">
-              A modern, dependency-free landing page for legal lead generation — built to route injured consumers to
-              qualified attorneys with clarity and speed.
-            </p>
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-ink">Explore</div>
-            <ul className="mt-4 space-y-2 text-sm text-ink-soft">
-              {nav.map((n) => (
-                <li key={n.href}><a href={n.href} className="hover:text-ink">{n.label}</a></li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-ink">Next integration points</div>
-            <ul className="mt-4 space-y-2 text-sm text-ink-soft">
-              <li>Wire form endpoint to your CRM</li>
-              <li>Refresh content blocks per campaign</li>
-              <li>Add case-specific landing pages</li>
-            </ul>
-          </div>
-        </div>
-        <div className="border-t border-border">
-          <div className="container flex flex-col items-start justify-between gap-3 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
-            <div>© {new Date().getFullYear()} Med Injury Claims. All rights reserved.</div>
-            <div className="flex items-center gap-5">
-              <a href="#" className="hover:text-ink">Privacy</a>
-              <a href="#" className="hover:text-ink">Terms</a>
-              <a href="#" className="hover:text-ink">Disclaimer</a>
+            {[
+              ["Sections", nav.slice(1).map(([, l, h]) => [l, h])],
+              ["Practice", [["Pharmaceutical", "#"], ["Devices", "#"], ["Negligence", "#"], ["Implants", "#"]]],
+              ["Colophon", [["Privacy", "#"], ["Terms", "#"], ["Disclaimer", "#"], ["Press", "#"]]],
+            ].map(([title, items]) => (
+              <div key={title as string} className="lg:col-span-2">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{title as string}</div>
+                <ul className="mt-4 space-y-2">
+                  {(items as [string, string][]).map(([l, h]) => (
+                    <li key={l}><a href={h} className="text-sm text-bone-soft hover:text-bone">{l}</a></li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <div className="lg:col-span-1 lg:text-right">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Set in</div>
+              <div className="mt-4 font-serif italic text-bone">Fraunces & Inter</div>
             </div>
           </div>
-        </div>
-      </footer>
+          <div className="container flex flex-col items-start justify-between gap-2 border-t border-border py-5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:flex-row sm:items-center">
+            <div>© {new Date().getFullYear()} Med Injury Claims — All rights reserved</div>
+            <div>Filed with care · Printed on the web</div>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }
