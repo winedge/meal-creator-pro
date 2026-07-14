@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import logo from "@/assets/medinjuryclaims-logo.png.asset.json";
+import logo from "@/assets/medinjuryclaims-logo.png";
 import heroImg from "@/assets/rideshare-hero.jpg";
 import passengerImg from "@/assets/rideshare-passenger.jpg";
 
@@ -179,7 +179,7 @@ export default function RideshareAbuse() {
       <header className="border-b border-border bg-background">
         <div className="container flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img src={logo.url} alt="Med Injury Claims" className="h-7 w-auto sm:h-10" />
+            <img src={logo} alt="Med Injury Claims" className="h-7 w-auto sm:h-10" />
           </Link>
           <nav className="hidden items-center gap-7 lg:flex">
             {nav.map((n) => (
@@ -454,7 +454,7 @@ export default function RideshareAbuse() {
       <footer className="bg-navy-deep text-primary-foreground">
         <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <img src={logo.url} alt="Med Injury Claims" className="h-10 w-auto brightness-0 invert" />
+            <img src={logo} alt="Med Injury Claims" className="h-10 w-auto brightness-0 invert" />
             <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
               Med Injury Claims helps individuals harmed by dangerous drugs, medical devices, toxic exposures, and negligent
               services get connected to trusted legal professionals. We're not a law firm - we're your first step toward justice.
