@@ -97,7 +97,7 @@ export function generateSubmissionPdf(s: Submission) {
         0: { cellWidth: 140, textColor: MUTED, fontStyle: "bold" },
         1: { cellWidth: "auto" },
       },
-      body: data.map(([k, v]) => [k, v || "—"]),
+      body: data.map(([k, v]) => [k, v || "-"]),
       didDrawPage: () => {},
     });
     y = (doc as any).lastAutoTable.finalY + 16;
@@ -151,7 +151,7 @@ export function generateSubmissionPdf(s: Submission) {
     doc.setFontSize(8);
     doc.setTextColor(...MUTED);
     doc.text(
-      "Confidential — Med Injury Claims intake docket. Not legal advice. Not a law firm.",
+      "Confidential - Med Injury Claims intake docket. Not legal advice. Not a law firm.",
       M,
       H - 32
     );

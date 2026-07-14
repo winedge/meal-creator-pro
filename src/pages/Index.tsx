@@ -57,7 +57,7 @@ const receive = [
   { t: "Free Legal Consultation", d: "No upfront cost, no obligation." },
   { t: "Confidential Review", d: "Your information is kept private and secure." },
   { t: "Nationwide Support", d: "Attorneys licensed across the U.S." },
-  { t: "No Upfront Fees", d: "Many attorneys work on a contingency basis — you pay nothing unless you win compensation." },
+  { t: "No Upfront Fees", d: "Many attorneys work on a contingency basis - you pay nothing unless you win compensation." },
 ];
 
 const faqs = [
@@ -153,7 +153,7 @@ export default function Index() {
       <header className="border-b border-border bg-background">
         <div className="container flex h-20 items-center justify-between">
           <a href="#top" className="flex items-center">
-            <img src={logo.url} alt="Med Injury Claims — Trusted Representation, Proven Results" className="h-7 w-auto sm:h-10" />
+            <img src={logo.url} alt="Med Injury Claims - Trusted Representation, Proven Results" className="h-7 w-auto sm:h-10" />
           </a>
           <nav className="hidden items-center gap-7 lg:flex">
             {nav.map((n) => (
@@ -168,7 +168,7 @@ export default function Index() {
         </div>
       </header>
 
-      {/* Hero — page title banner */}
+      {/* Hero - page title banner */}
       <section
         className="relative border-b border-border bg-navy-deep text-primary-foreground"
         style={{
@@ -188,7 +188,7 @@ export default function Index() {
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
               Injured by a defective product, medication, or the negligence of a major company?
               You may qualify for financial compensation through an ongoing lawsuit or individual claim.
-              Speak with a qualified attorney — at no cost and no obligation.
+              Speak with a qualified attorney - at no cost and no obligation.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark">
@@ -356,7 +356,7 @@ export default function Index() {
           <div className="text-center">
             <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Take the First Step Toward Justice</h2>
             <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
-              You don't have to face this alone. Click below to start your <strong className="text-navy">free, confidential case review</strong> — it only takes 30 seconds.
+              You don't have to face this alone. Click below to start your <strong className="text-navy">free, confidential case review</strong> - it only takes 30 seconds.
             </p>
           </div>
 
@@ -367,7 +367,7 @@ export default function Index() {
               </div>
               <h3 className="mt-6 font-serif text-2xl font-black text-navy">Request received</h3>
               <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Thank you — a case specialist will contact you within 24 hours to discuss your potential claim.
+                Thank you - a case specialist will contact you within 24 hours to discuss your potential claim.
                 Please keep an eye on your phone and email.
               </p>
               <p className="mt-6 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -474,7 +474,7 @@ export default function Index() {
             <img src={logo.url} alt="Med Injury Claims" className="h-10 w-auto brightness-0 invert" />
             <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
               Med Injury Claims helps individuals harmed by dangerous drugs, medical devices, or toxic exposures get connected to
-              trusted legal professionals. We're not a law firm — we're your first step toward justice.
+              trusted legal professionals. We're not a law firm - we're your first step toward justice.
             </p>
           </div>
           <div>
