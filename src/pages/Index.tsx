@@ -152,12 +152,8 @@ export default function Index() {
       {/* Header */}
       <header className="border-b border-border bg-background">
         <div className="container flex h-20 items-center justify-between">
-          <a href="#top" className="flex items-center gap-3">
-            <div className="grid h-10 w-10 place-items-center border-2 border-navy font-serif text-lg font-black text-navy">M</div>
-            <div className="leading-tight">
-              <div className="font-serif text-lg font-black text-navy">Med Injury Claims</div>
-              <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Attorney Referral Service</div>
-            </div>
+          <a href="#top" className="flex items-center">
+            <img src={logo.url} alt="Med Injury Claims — Trusted Representation, Proven Results" className="h-10 w-auto sm:h-12" />
           </a>
           <nav className="hidden items-center gap-7 lg:flex">
             {nav.map((n) => (
