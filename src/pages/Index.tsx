@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import courthouse from "@/assets/courthouse-hero.jpg";
 import consult from "@/assets/consult.jpg";
 
@@ -69,7 +70,9 @@ export default function Index() {
   const [submitted, setSubmitted] = useState(false);
   const [certRef, setCertRef] = useState<string>("");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -97,10 +100,32 @@ export default function Index() {
     const trustedFormCertUrl = String(fd.get("xxTrustedFormCertUrl") ?? "");
     const trustedFormPingUrl = String(fd.get("xxTrustedFormPingUrl") ?? "");
 
-    // Payload ready to forward to LeadConduit / CRM.
-    const payload = { ...parsed.data, trustedFormCertUrl, trustedFormPingUrl };
-    // eslint-disable-next-line no-console
-    console.log("[case-review] submission payload", payload);
+    setSubmitting(true);
+    const { error } = await supabase.from("submissions").insert({
+      first_name: parsed.data.firstName,
+      last_name: parsed.data.lastName,
+      email: parsed.data.email,
+      phone: parsed.data.phone,
+      address: parsed.data.address || null,
+      city: parsed.data.city || null,
+      state: parsed.data.state || null,
+      zip: parsed.data.zip,
+      claim_type: parsed.data.claimType,
+      incident_state: parsed.data.incidentState || null,
+      description: parsed.data.description || null,
+      consent: parsed.data.consent,
+      trusted_form_cert_url: trustedFormCertUrl || null,
+      trusted_form_ping_url: trustedFormPingUrl || null,
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    });
+    setSubmitting(false);
+
+    if (error) {
+      toast.error("We couldn't submit your request. Please try again.");
+      console.error("[case-review] insert failed", error);
+      return;
+    }
 
     setCertRef(trustedFormCertUrl ? trustedFormCertUrl.slice(-12) : "pending");
     setSubmitted(true);
@@ -433,8 +458,8 @@ export default function Index() {
                 </Label>
               </div>
             </div>
-            <Button type="submit" size="lg" className="mt-8 w-full rounded-none bg-brand-red text-primary-foreground hover:bg-brand-red-dark">
-              Submit
+            <Button type="submit" size="lg" disabled={submitting} className="mt-8 w-full rounded-none bg-brand-red text-primary-foreground hover:bg-brand-red-dark">
+              {submitting ? "Submitting…" : "Submit"}
             </Button>
           </form>
           )}
