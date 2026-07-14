@@ -19,6 +19,7 @@ export default {
         foreground: "hsl(var(--foreground))",
         navy: { DEFAULT: "hsl(var(--navy))", deep: "hsl(var(--navy-deep))" },
         gold: "hsl(var(--gold))",
+        brand: { red: "hsl(var(--brand-red))", "red-dark": "hsl(var(--brand-red-dark))" },
         surface: "hsl(var(--surface))",
         primary: { DEFAULT: "hsl(var(--primary))", foreground: "hsl(var(--primary-foreground))" },
         secondary: { DEFAULT: "hsl(var(--secondary))", foreground: "hsl(var(--secondary-foreground))" },

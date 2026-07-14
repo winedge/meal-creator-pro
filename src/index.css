@@ -23,7 +23,7 @@
     --muted: 210 20% 96%;
     --muted-foreground: 215 15% 45%;
 
-    --accent: 38 55% 45%;
+    --accent: 4 78% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 45%;
@@ -35,9 +35,11 @@
 
     --radius: 0.25rem;
 
-    --navy: 215 45% 20%;
-    --navy-deep: 215 50% 14%;
+    --navy: 220 25% 10%;
+    --navy-deep: 220 30% 6%;
     --gold: 38 55% 45%;
+    --brand-red: 4 78% 50%;
+    --brand-red-dark: 4 78% 42%;
     --surface: 210 25% 98%;
 
     --sidebar-background: 0 0% 98%;
