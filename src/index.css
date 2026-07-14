@@ -4,45 +4,41 @@
 
 @layer base {
   :root {
-    /* Dark editorial — ink, bone, ember */
-    --background: 30 12% 8%;
-    --foreground: 36 40% 94%;
+    /* Classic professional — white, navy, subtle gold */
+    --background: 0 0% 100%;
+    --foreground: 215 30% 15%;
 
-    --card: 30 10% 11%;
-    --card-foreground: 36 40% 94%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 30% 15%;
 
-    --popover: 30 10% 11%;
-    --popover-foreground: 36 40% 94%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 30% 15%;
 
-    --primary: 36 40% 94%;
-    --primary-foreground: 30 12% 8%;
+    --primary: 215 45% 20%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 30 8% 14%;
-    --secondary-foreground: 36 40% 94%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 215 45% 20%;
 
-    --muted: 30 6% 16%;
-    --muted-foreground: 36 12% 68%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 15% 45%;
 
-    --accent: 16 82% 58%;
-    --accent-foreground: 30 12% 8%;
+    --accent: 38 55% 45%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 36 40% 94%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 30 8% 20%;
-    --input: 30 8% 20%;
-    --ring: 16 82% 58%;
+    --border: 214 20% 88%;
+    --input: 214 20% 88%;
+    --ring: 215 45% 20%;
 
     --radius: 0.25rem;
 
-    --bone: 36 40% 94%;
-    --bone-soft: 36 22% 82%;
-    --ink: 30 14% 6%;
-    --ember: 16 82% 58%;
-    --ember-deep: 14 72% 48%;
-
-    --shadow-line: inset 0 -1px 0 hsl(var(--border));
-    --grid-line: hsl(30 8% 18%);
+    --navy: 215 45% 20%;
+    --navy-deep: 215 50% 14%;
+    --gold: 38 55% 45%;
+    --surface: 210 25% 98%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -60,23 +56,7 @@
   html { scroll-behavior: smooth; }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-feature-settings: 'ss01', 'cv11';
+    font-family: 'Source Sans 3', system-ui, sans-serif;
   }
-  .font-serif { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
-  .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
-  .rule { @apply h-px w-full bg-border; }
-  .kicker {
-    @apply inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground;
-  }
-  .grid-lines {
-    background-image:
-      linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
-    background-size: calc(100% / 12) 100%;
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  .marquee-track { animation: marquee 40s linear infinite; }
+  .font-serif { font-family: 'Merriweather', Georgia, serif; }
 }

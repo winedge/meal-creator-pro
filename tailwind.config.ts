@@ -5,12 +5,11 @@ export default {
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
-    container: { center: true, padding: "1.5rem", screens: { "2xl": "1360px" } },
+    container: { center: true, padding: "1.5rem", screens: { "2xl": "1200px" } },
     extend: {
       fontFamily: {
-        serif: ["Fraunces", "Georgia", "serif"],
-        sans: ["Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+        serif: ["Merriweather", "Georgia", "serif"],
+        sans: ["Source Sans 3", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -18,9 +17,9 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        bone: { DEFAULT: "hsl(var(--bone))", soft: "hsl(var(--bone-soft))" },
-        ink: "hsl(var(--ink))",
-        ember: { DEFAULT: "hsl(var(--ember))", deep: "hsl(var(--ember-deep))" },
+        navy: { DEFAULT: "hsl(var(--navy))", deep: "hsl(var(--navy-deep))" },
+        gold: "hsl(var(--gold))",
+        surface: "hsl(var(--surface))",
         primary: { DEFAULT: "hsl(var(--primary))", foreground: "hsl(var(--primary-foreground))" },
         secondary: { DEFAULT: "hsl(var(--secondary))", foreground: "hsl(var(--secondary-foreground))" },
         destructive: { DEFAULT: "hsl(var(--destructive))", foreground: "hsl(var(--destructive-foreground))" },
@@ -39,7 +38,7 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
-      borderRadius: { lg: "var(--radius)", md: "calc(var(--radius))", sm: "calc(var(--radius))" },
+      borderRadius: { lg: "var(--radius)", md: "var(--radius)", sm: "var(--radius)" },
       keyframes: {
         "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
         "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
