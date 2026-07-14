@@ -153,7 +153,7 @@ export default function Index() {
       <header className="border-b border-border bg-background">
         <div className="container flex h-20 items-center justify-between">
           <a href="#top" className="flex items-center">
-            <img src={logo.url} alt="Med Injury Claims — Trusted Representation, Proven Results" className="h-9 w-auto sm:h-10" />
+            <img src={logo.url} alt="Med Injury Claims — Trusted Representation, Proven Results" className="h-7 w-auto sm:h-10" />
           </a>
           <nav className="hidden items-center gap-7 lg:flex">
             {nav.map((n) => (
