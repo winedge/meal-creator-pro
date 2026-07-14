@@ -47,7 +47,7 @@ export default function AdminAuth() {
     <div className="min-h-screen bg-surface flex items-center justify-center p-4">
       <div className="w-full max-w-md border border-border bg-background p-8 shadow-md">
         <Link to="/" className="text-xs uppercase tracking-widest text-muted-foreground hover:text-navy">← Back to site</Link>
-        <h1 className="mt-4 font-serif text-2xl font-black text-navy">CRM Admin</h1>
+        <h1 className="mt-4 font-serif text-2xl font-black text-navy">Medinjury Admin</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {mode === "signin" ? "Sign in to manage submissions." : "Create an admin account. The first account becomes admin automatically."}
         </p>
@@ -66,12 +66,14 @@ export default function AdminAuth() {
           </Button>
         </form>
 
-        <button
-          onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-4 w-full text-xs text-muted-foreground hover:text-navy"
-        >
-          {mode === "signin" ? "Need to create the first admin account?" : "Already have an account? Sign in"}
-        </button>
+        {mode === "signup" && (
+          <button
+            onClick={() => setMode("signin")}
+            className="mt-4 w-full text-xs text-muted-foreground hover:text-navy"
+          >
+            Already have an account? Sign in
+          </button>
+        )}
       </div>
     </div>
   );
