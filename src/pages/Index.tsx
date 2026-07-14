@@ -66,13 +66,47 @@ const faqs = [
 ];
 
 export default function Index() {
+  const [submitted, setSubmitted] = useState(false);
+  const [certRef, setCertRef] = useState<string>("");
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Thank you. Your case review request has been received.", {
-      description: "A member of our intake team will contact you shortly.",
-    });
-    (e.target as HTMLFormElement).reset();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const data = {
+      firstName: String(fd.get("firstName") ?? ""),
+      lastName: String(fd.get("lastName") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      address: String(fd.get("address") ?? ""),
+      city: String(fd.get("city") ?? ""),
+      state: String(fd.get("state") ?? ""),
+      zip: String(fd.get("zip") ?? ""),
+      claimType: String(fd.get("claimType") ?? ""),
+      incidentState: String(fd.get("incidentState") ?? ""),
+      description: String(fd.get("description") ?? ""),
+      consent: fd.get("consent") === "on",
+    };
+
+    const parsed = caseReviewSchema.safeParse(data);
+    if (!parsed.success) {
+      toast.error(parsed.error.errors[0]?.message ?? "Please review the form.");
+      return;
+    }
+
+    const trustedFormCertUrl = String(fd.get("xxTrustedFormCertUrl") ?? "");
+    const trustedFormPingUrl = String(fd.get("xxTrustedFormPingUrl") ?? "");
+
+    // Payload ready to forward to LeadConduit / CRM.
+    const payload = { ...parsed.data, trustedFormCertUrl, trustedFormPingUrl };
+    // eslint-disable-next-line no-console
+    console.log("[case-review] submission payload", payload);
+
+    setCertRef(trustedFormCertUrl ? trustedFormCertUrl.slice(-12) : "pending");
+    setSubmitted(true);
+    form.reset();
   };
+
 
   return (
     <div id="top" className="min-h-screen bg-background text-foreground">
