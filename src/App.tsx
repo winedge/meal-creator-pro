@@ -23,6 +23,7 @@ const App = () => (
           <Route path="/rideshare-abuse" element={<RideshareAbuse />} />
           <Route path="/admin/login" element={<AdminAuth />} />
           <Route path="/admin" element={<AdminCRM />} />
+          <Route path="/admin/rideshare" element={<AdminCRM presetClaim="rideshare" />} />
           <Route path="/admin/:id" element={<AdminSubmission />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

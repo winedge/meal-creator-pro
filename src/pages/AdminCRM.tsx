@@ -22,17 +22,22 @@ const CLAIM_LABELS: Record<string, string> = {
 
 const STATUSES = ["new", "contacted", "qualified", "disqualified", "closed"] as const;
 
-export default function AdminCRM() {
+export default function AdminCRM({ presetClaim }: { presetClaim?: string } = {}) {
   const { session, isAdmin, loading } = useAdminAuth();
   const nav = useNavigate();
   const [rows, setRows] = useState<Submission[]>([]);
   const [fetching, setFetching] = useState(true);
 
   const [q, setQ] = useState("");
-  const [claim, setClaim] = useState<string>("all");
+  const [claim, setClaim] = useState<string>(presetClaim ?? "all");
   const [status, setStatus] = useState<string>("all");
   const [from, setFrom] = useState<string>("");
   const [to, setTo] = useState<string>("");
+
+  useEffect(() => {
+    setClaim(presetClaim ?? "all");
+  }, [presetClaim]);
+
 
   useEffect(() => {
     if (!loading && (!session || !isAdmin)) nav("/admin/login", { replace: true });
@@ -130,9 +135,31 @@ export default function AdminCRM() {
       </header>
 
       <main className="container py-8">
+        {/* Sub-nav tabs */}
+        <div className="mb-6 flex flex-wrap gap-1 border-b border-border">
+          {[
+            { to: "/admin", label: "All Submissions", active: !presetClaim },
+            { to: "/admin/rideshare", label: "Rideshare Abuse", active: presetClaim === "rideshare" },
+          ].map((t) => (
+            <Link
+              key={t.to}
+              to={t.to}
+              className={`-mb-px border-b-2 px-4 py-2 text-sm font-semibold transition ${
+                t.active
+                  ? "border-brand-red text-navy"
+                  : "border-transparent text-muted-foreground hover:text-navy"
+              }`}
+            >
+              {t.label}
+            </Link>
+          ))}
+        </div>
+
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-serif text-2xl font-black text-navy">Submissions</h1>
+            <h1 className="font-serif text-2xl font-black text-navy">
+              {presetClaim === "rideshare" ? "Rideshare Abuse Submissions" : "Submissions"}
+            </h1>
             <p className="text-sm text-muted-foreground">
               {filtered.length} of {rows.length} record{rows.length === 1 ? "" : "s"}
             </p>
@@ -141,6 +168,7 @@ export default function AdminCRM() {
             <Download className="h-4 w-4 mr-2" /> Export CSV
           </Button>
         </div>
+
 
         {/* Filters */}
         <div className="mt-6 grid gap-3 border border-border bg-background p-4 shadow-sm md:grid-cols-5">
