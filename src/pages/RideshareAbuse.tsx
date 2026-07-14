@@ -11,8 +11,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/medinjuryclaims-logo.png.asset.json";
-import courthouse from "@/assets/courthouse-hero.jpg";
-import consult from "@/assets/consult.jpg";
+import heroImg from "@/assets/rideshare-hero.jpg";
+import passengerImg from "@/assets/rideshare-passenger.jpg";
 
 const schema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(60),
@@ -198,7 +198,7 @@ export default function RideshareAbuse() {
       <section
         className="relative border-b border-border bg-navy-deep text-primary-foreground"
         style={{
-          backgroundImage: `linear-gradient(rgba(10,14,25,0.82), rgba(10,14,25,0.9)), url(${courthouse})`,
+          backgroundImage: `linear-gradient(rgba(10,14,25,0.82), rgba(10,14,25,0.9)), url(${heroImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -238,7 +238,7 @@ export default function RideshareAbuse() {
       <section className="border-b border-border bg-surface">
         <div className="container grid gap-12 py-16 lg:grid-cols-2 lg:items-center">
           <img
-            src={consult}
+            src={passengerImg}
             alt="Attorney consulting a rideshare abuse survivor"
             width={1200}
             height={900}
