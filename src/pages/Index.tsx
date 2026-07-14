@@ -458,8 +458,8 @@ export default function Index() {
                 </Label>
               </div>
             </div>
-            <Button type="submit" size="lg" className="mt-8 w-full rounded-none bg-brand-red text-primary-foreground hover:bg-brand-red-dark">
-              Submit
+            <Button type="submit" size="lg" disabled={submitting} className="mt-8 w-full rounded-none bg-brand-red text-primary-foreground hover:bg-brand-red-dark">
+              {submitting ? "Submitting…" : "Submit"}
             </Button>
           </form>
           )}
