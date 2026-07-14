@@ -118,7 +118,7 @@ export default function AdminCRM() {
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center">
             <img src="/__l5e/assets-v1/06a79a3f-77b6-407f-bfab-d27d63adbafe/medinjuryclaims-logo.png" alt="Med Injury Claims" className="h-9 w-auto brightness-0 invert" />
-            <span className="ml-4 hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-primary-foreground/70 border-l border-primary-foreground/30 pl-4">CRM · Submissions</span>
+            <span className="ml-4 hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-primary-foreground/70 border-l border-primary-foreground/30 pl-4">Medinjury Admin · Submissions</span>
           </Link>
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline text-xs text-primary-foreground/70">{session?.user.email}</span>
