@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import logo from "@/assets/medinjuryclaims-logo.png.asset.json";
 import courthouse from "@/assets/courthouse-hero.jpg";
 import consult from "@/assets/consult.jpg";
 
