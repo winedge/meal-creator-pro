@@ -44,24 +44,67 @@ export default function AdminAuth() {
   };
 
   return (
-    <div className="min-h-screen bg-surface flex items-center justify-center p-4">
-      <div className="w-full max-w-md border border-border bg-background p-8 shadow-md">
-        <Link to="/" className="text-xs uppercase tracking-widest text-muted-foreground hover:text-navy">← Back to site</Link>
+    <div className="relative min-h-screen aurora-bg flex items-center justify-center p-4 overflow-hidden">
+      {/* Floating color orbs behind the glass */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full blur-3xl opacity-70 animate-floaty"
+        style={{ background: "radial-gradient(circle, hsla(220,95%,60%,0.55), transparent 70%)" }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-24 -right-16 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-70 animate-floaty-2"
+        style={{ background: "radial-gradient(circle, hsla(4,90%,55%,0.5), transparent 70%)" }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/3 right-1/4 h-72 w-72 rounded-full blur-3xl opacity-60 animate-floaty"
+        style={{ background: "radial-gradient(circle, hsla(38,90%,55%,0.5), transparent 70%)" }}
+      />
+
+      <div className="relative w-full max-w-md rounded-2xl glass-card p-8 animate-hero-in">
+        <Link
+          to="/"
+          className="text-xs uppercase tracking-widest text-navy/70 hover:text-navy transition-colors"
+        >
+          ← Back to site
+        </Link>
         <h1 className="mt-4 font-serif text-2xl font-black text-navy">Medinjury Admin</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {mode === "signin" ? "Sign in to manage submissions." : "Create an admin account. The first account becomes admin automatically."}
+        <p className="mt-1 text-sm text-navy/70">
+          {mode === "signin"
+            ? "Sign in to manage submissions."
+            : "Create an admin account. The first account becomes admin automatically."}
         </p>
 
         <form onSubmit={submit} className="mt-6 space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Label htmlFor="email" className="text-navy">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-white/60 border-white/70 backdrop-blur-md focus-visible:ring-navy/30"
+            />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Label htmlFor="password" className="text-navy">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="bg-white/60 border-white/70 backdrop-blur-md focus-visible:ring-navy/30"
+            />
           </div>
-          <Button type="submit" disabled={busy} className="w-full bg-navy hover:bg-navy-deep text-primary-foreground">
+          <Button
+            type="submit"
+            disabled={busy}
+            className="w-full rounded-xl bg-navy hover:bg-navy-deep text-primary-foreground transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+          >
             {busy ? "…" : mode === "signin" ? "Sign in" : "Create account"}
           </Button>
         </form>
@@ -69,7 +112,7 @@ export default function AdminAuth() {
         {mode === "signup" && (
           <button
             onClick={() => setMode("signin")}
-            className="mt-4 w-full text-xs text-muted-foreground hover:text-navy"
+            className="mt-4 w-full text-xs text-navy/70 hover:text-navy transition-colors"
           >
             Already have an account? Sign in
           </button>
