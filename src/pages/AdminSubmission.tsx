@@ -51,7 +51,7 @@ export default function AdminSubmission() {
   const Field = ({ label, value, mono }: { label: string; value?: string | null; mono?: boolean }) => (
     <div className="border-b border-border py-3">
       <div className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</div>
-      <div className={`mt-1 text-sm text-navy break-words ${mono ? "font-mono text-xs" : ""}`}>{value || "—"}</div>
+      <div className={`mt-1 text-sm text-navy break-words ${mono ? "font-mono text-xs" : ""}`}>{value || "-"}</div>
     </div>
   );
 
@@ -100,7 +100,7 @@ export default function AdminSubmission() {
                 <a href={row.trusted_form_cert_url} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex items-center gap-1.5 text-xs font-mono text-brand-red hover:underline break-all">
                   {row.trusted_form_cert_url} <ExternalLink className="h-3 w-3 shrink-0" />
                 </a>
-              ) : <div className="mt-1 text-sm text-muted-foreground">—</div>}
+              ) : <div className="mt-1 text-sm text-muted-foreground">-</div>}
             </div>
             <div className="py-3 border-b border-border">
               <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Ping URL</div>
@@ -108,7 +108,7 @@ export default function AdminSubmission() {
                 <a href={row.trusted_form_ping_url} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex items-center gap-1.5 text-xs font-mono text-brand-red hover:underline break-all">
                   {row.trusted_form_ping_url} <ExternalLink className="h-3 w-3 shrink-0" />
                 </a>
-              ) : <div className="mt-1 text-sm text-muted-foreground">—</div>}
+              ) : <div className="mt-1 text-sm text-muted-foreground">-</div>}
             </div>
             <Field label="Page URL" value={row.page_url} mono />
             <Field label="User agent" value={row.user_agent} mono />

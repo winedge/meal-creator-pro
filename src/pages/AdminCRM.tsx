@@ -215,7 +215,7 @@ export default function AdminCRM() {
                     </td>
                     <td className="px-4 py-3 text-xs">{CLAIM_LABELS[r.claim_type] ?? r.claim_type}</td>
                     <td className="px-4 py-3 text-xs">
-                      {[r.city, r.state].filter(Boolean).join(", ") || "—"}<br />
+                      {[r.city, r.state].filter(Boolean).join(", ") || "-"}<br />
                       <span className="text-muted-foreground">{r.zip}</span>
                     </td>
                     <td className="px-4 py-3">
@@ -224,7 +224,7 @@ export default function AdminCRM() {
                           view <ExternalLink className="h-3 w-3" />
                         </a>
                       ) : (
-                        <span className="text-xs text-muted-foreground">—</span>
+                        <span className="text-xs text-muted-foreground">-</span>
                       )}
                     </td>
                     <td className="px-4 py-3">

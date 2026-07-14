@@ -316,7 +316,7 @@ export default function RideshareAbuse() {
           <h2 className="font-serif text-2xl font-black sm:text-3xl">Take the First Step Toward Justice</h2>
           <p className="mt-3 text-primary-foreground/80">
             You don't have to face this alone. Our legal partners are currently reviewing Rideshare Abuse Claims nationwide
-            to help survivors seek justice and compensation. Start your free, confidential case review — it only takes 30 seconds.
+            to help survivors seek justice and compensation. Start your free, confidential case review - it only takes 30 seconds.
           </p>
           <div className="mt-6">
             <Button asChild size="lg" className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark uppercase tracking-wider">
@@ -343,7 +343,7 @@ export default function RideshareAbuse() {
               </div>
               <h3 className="mt-6 font-serif text-2xl font-black text-navy">Request received</h3>
               <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Thank you — a case specialist will contact you within 24 hours to discuss your potential claim.
+                Thank you - a case specialist will contact you within 24 hours to discuss your potential claim.
               </p>
               <p className="mt-6 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                 Reference: {certRef || "pending"}
@@ -457,7 +457,7 @@ export default function RideshareAbuse() {
             <img src={logo.url} alt="Med Injury Claims" className="h-10 w-auto brightness-0 invert" />
             <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
               Med Injury Claims helps individuals harmed by dangerous drugs, medical devices, toxic exposures, and negligent
-              services get connected to trusted legal professionals. We're not a law firm — we're your first step toward justice.
+              services get connected to trusted legal professionals. We're not a law firm - we're your first step toward justice.
             </p>
           </div>
           <div>
