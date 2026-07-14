@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Download, FileText, LogOut, Search, Trash2, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
 import { generateSubmissionPdf, type Submission } from "@/lib/submissionPdf";
+import logo from "@/assets/medinjuryclaims-logo.png";
 
 const CLAIM_LABELS: Record<string, string> = {
   rideshare: "Rideshare Abuse",
@@ -122,7 +123,7 @@ export default function AdminCRM({ presetClaim }: { presetClaim?: string } = {})
       <header className="border-b border-border bg-navy-deep text-primary-foreground">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img src="/__l5e/assets-v1/06a79a3f-77b6-407f-bfab-d27d63adbafe/medinjuryclaims-logo.png" alt="Med Injury Claims" className="h-9 w-auto brightness-0 invert" />
+            <img src={logo} alt="Med Injury Claims" className="h-9 w-auto brightness-0 invert" />
             <span className="ml-4 hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-primary-foreground/70 border-l border-primary-foreground/30 pl-4">Medinjury Admin · Submissions</span>
           </Link>
           <div className="flex items-center gap-2">
