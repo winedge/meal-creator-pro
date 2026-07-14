@@ -85,7 +85,7 @@ export default function AdminAuth() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-white/60 border-white/70 backdrop-blur-md focus-visible:ring-navy/30"
+              className="glass-input text-navy focus-visible:ring-navy/30"
             />
           </div>
           <div className="space-y-1.5">
@@ -97,7 +97,7 @@ export default function AdminAuth() {
               minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-white/60 border-white/70 backdrop-blur-md focus-visible:ring-navy/30"
+              className="glass-input text-navy focus-visible:ring-navy/30"
             />
           </div>
           <Button
