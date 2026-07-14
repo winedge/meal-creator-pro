@@ -204,7 +204,7 @@ export default function RideshareAbuse() {
         }}
       >
         <div className="container py-20 lg:py-28">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl animate-hero-in">
             <div className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-brand-red">
               Rideshare Abuse · Free Case Review
             </div>
@@ -302,7 +302,7 @@ export default function RideshareAbuse() {
           </p>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
             {abuseExamples.map((i) => (
-              <li key={i} className="flex items-start gap-3 border-l-2 border-brand-red bg-background p-4 text-sm text-navy shadow-sm">
+              <li key={i} className="lift flex items-start gap-3 border-l-2 border-brand-red bg-background p-4 text-sm text-navy shadow-sm">
                 <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" /> {i}
               </li>
             ))}
