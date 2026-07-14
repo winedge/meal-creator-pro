@@ -1,4 +1,6 @@
-import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
+import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2, Check } from "lucide-react";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,6 +10,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import courthouse from "@/assets/courthouse-hero.jpg";
 import consult from "@/assets/consult.jpg";
+
+const caseReviewSchema = z.object({
+  firstName: z.string().trim().min(1, "First name is required").max(60),
+  lastName: z.string().trim().min(1, "Last name is required").max(60),
+  email: z.string().trim().email("Enter a valid email").max(255),
+  phone: z.string().trim().min(7, "Enter a valid phone number").max(25),
+  address: z.string().trim().max(200).optional().or(z.literal("")),
+  city: z.string().trim().max(80).optional().or(z.literal("")),
+  state: z.string().trim().max(40).optional().or(z.literal("")),
+  zip: z.string().trim().min(3, "Zip is required").max(12),
+  claimType: z.string().min(1, "Select a claim type"),
+  incidentState: z.string().max(40).optional().or(z.literal("")),
+  description: z.string().trim().max(1000).optional().or(z.literal("")),
+  consent: z.literal(true, { errorMap: () => ({ message: "Consent is required" }) }),
+});
+
 
 const nav = [
   { label: "Home", href: "#top" },
