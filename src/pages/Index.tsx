@@ -211,20 +211,20 @@ export default function Index() {
       {/* Intro */}
       <section className="border-b border-border">
         <div className="container max-w-4xl py-16 text-center">
-          <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">
+          <Reveal as="h2" className="font-serif text-2xl font-black text-navy sm:text-3xl">
             Justice for Victims of Negligence and Corporate Misconduct
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted-foreground">
+          </Reveal>
+          <Reveal delay={100} as="p" className="mt-5 text-base leading-relaxed text-muted-foreground">
             Over the past few years, alarming reports have surfaced of consumers being <strong className="text-navy">harmed by defective drugs,
             unsafe medical devices, and dangerous consumer products</strong> across the United States. If you or someone you
             love was injured, you may be entitled to <strong className="text-navy">significant compensation</strong> through
             an ongoing <strong className="text-navy">mass tort or individual lawsuit.</strong>
-          </p>
-          <div className="mt-8">
-            <Button asChild className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark uppercase tracking-wider">
+          </Reveal>
+          <Reveal delay={200} className="mt-8">
+            <Button asChild className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark uppercase tracking-wider transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]">
               <a href="#contact">Do You Qualify to Join a Lawsuit?</a>
             </Button>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -301,14 +301,17 @@ export default function Index() {
             {lawsuits.map((l, i) => {
               const href = l.t === "Rideshare Abuse" ? "/rideshare-abuse" : "#contact";
               return (
-                <article key={l.t} className="border border-border bg-background p-6 shadow-sm transition hover:shadow-md">
-                  <div className="font-serif text-xs font-bold text-brand-red">CASE {String(i + 1).padStart(2, "0")}</div>
-                  <h3 className="mt-2 font-serif text-lg font-bold text-navy">{l.t}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
-                  <a href={href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red">
-                    {l.t === "Rideshare Abuse" ? "Learn more" : "Assess your case"} <ChevronRight className="h-4 w-4" />
-                  </a>
-                </article>
+                <Reveal key={l.t} delay={i * 60}>
+                  <article className="lift border border-border bg-background p-6 shadow-sm h-full">
+                    <div className="font-serif text-xs font-bold text-brand-red">CASE {String(i + 1).padStart(2, "0")}</div>
+                    <h3 className="mt-2 font-serif text-lg font-bold text-navy">{l.t}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
+                    <a href={href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red group">
+                      {l.t === "Rideshare Abuse" ? "Learn more" : "Assess your case"}
+                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </a>
+                  </article>
+                </Reveal>
               );
             })}
           </div>
@@ -323,11 +326,13 @@ export default function Index() {
             <h2 className="mt-3 font-serif text-2xl font-black text-navy sm:text-3xl">What You'll Receive</h2>
           </div>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {receive.map((r) => (
-              <div key={r.t} className="border-l-2 border-brand-red bg-surface p-5">
-                <h3 className="font-serif text-base font-bold text-navy">{r.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{r.d}</p>
-              </div>
+            {receive.map((r, i) => (
+              <Reveal key={r.t} delay={i * 80}>
+                <div className="lift border-l-2 border-brand-red bg-surface p-5 h-full">
+                  <h3 className="font-serif text-base font-bold text-navy">{r.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{r.d}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
