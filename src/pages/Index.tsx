@@ -1,41 +1,57 @@
-import { Phone, Mail, MapPin, Clock, ChevronRight } from "lucide-react";
+import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import officeImg from "@/assets/office.jpg";
+import courthouse from "@/assets/courthouse-hero.jpg";
+import consult from "@/assets/consult.jpg";
 
 const nav = [
   { label: "Home", href: "#top" },
   { label: "About Us", href: "#about" },
-  { label: "Practice Areas", href: "#practice" },
-  { label: "Case Results", href: "#results" },
-  { label: "Contact", href: "#contact" },
+  { label: "Frequently Asked Questions", href: "#faq" },
+  { label: "Active Lawsuits", href: "#lawsuits" },
+  { label: "Contact Us", href: "#contact" },
 ];
 
-const practiceAreas = [
-  { title: "Defective Medications", desc: "Representation for injuries caused by unsafe prescription drugs, mislabeled medications, and undisclosed side effects." },
-  { title: "Medical Device Failure", desc: "Claims involving implants, catheters, surgical hardware, and other devices that failed to perform as intended." },
-  { title: "Manufacturer Negligence", desc: "Cases involving inadequate warnings, design defects, and safety failures by pharmaceutical and product manufacturers." },
-  { title: "Product Liability", desc: "Legal support for consumers harmed by defective consumer products across a wide range of industries." },
-  { title: "Class Action Support", desc: "Guidance and representation for individuals joining or considering ongoing class action lawsuits." },
-  { title: "Personal Injury Claims", desc: "Comprehensive representation for individuals seeking compensation following a serious injury." },
+const lawsuits = [
+  { t: "Rideshare Abuse", d: "Assault, harassment, and negligence claims involving Uber and Lyft drivers." },
+  { t: "Roblox Abuse", d: "Investigations into online exploitation and grooming of minors on gaming platforms." },
+  { t: "Defective Medications", d: "Injuries caused by unsafe prescription drugs and undisclosed side effects." },
+  { t: "Medical Device Failure", d: "Claims involving implants, catheters, and surgical hardware defects." },
+  { t: "Toxic Exposure", d: "Harm from contaminated water, industrial chemicals, and hazardous products." },
+  { t: "Manufacturer Negligence", d: "Design defects and inadequate warnings by product manufacturers." },
 ];
 
-const stats = [
-  { k: "25+", l: "Years of Experience" },
-  { k: "$500M+", l: "Recovered for Clients" },
-  { k: "10,000+", l: "Cases Handled" },
-  { k: "50", l: "States Served" },
+const eligibility = [
+  "You or a loved one suffered a serious injury connected to a product, drug, or service",
+  "The incident involved a company, manufacturer, or platform named in an active investigation",
+  "You received a diagnosis or documented harm from a medical professional",
+  "The event occurred within the past several years and you have supporting records",
+];
+
+const receive = [
+  { t: "Free Legal Consultation", d: "No upfront cost, no obligation." },
+  { t: "Confidential Review", d: "Your information is kept private and secure." },
+  { t: "Nationwide Support", d: "Attorneys licensed across the U.S." },
+  { t: "No Upfront Fees", d: "Many attorneys work on a contingency basis — you pay nothing unless you win compensation." },
+];
+
+const faqs = [
+  { q: "How much does it cost to speak with an attorney?", a: "Nothing. Every case review is free, confidential, and carries no obligation to proceed." },
+  { q: "How long do I have to file a claim?", a: "Statutes of limitations vary by state and claim type. The sooner you speak with a qualified attorney, the more options you preserve." },
+  { q: "Will my information be shared?", a: "Your submission is reviewed only by our intake team and the participating law firms handling your matter." },
+  { q: "What if my case does not qualify?", a: "We will tell you honestly and, when possible, point you toward other resources at no cost." },
 ];
 
 export default function Index() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Thank you. Your request has been received.", {
-      description: "A member of our team will contact you within one business day.",
+    toast.success("Thank you. Your case review request has been received.", {
+      description: "A member of our intake team will contact you shortly.",
     });
     (e.target as HTMLFormElement).reset();
   };
@@ -43,165 +59,177 @@ export default function Index() {
   return (
     <div id="top" className="min-h-screen bg-background text-foreground">
       {/* Top utility bar */}
-      <div className="border-b border-border bg-navy text-primary-foreground">
-        <div className="container flex h-10 items-center justify-between text-sm">
-          <div className="hidden items-center gap-6 sm:flex">
-            <span className="flex items-center gap-2"><Phone className="h-3.5 w-3.5" /> (800) 555-0142</span>
-            <span className="flex items-center gap-2"><Mail className="h-3.5 w-3.5" /> intake@medinjuryclaims.com</span>
+      <div className="bg-navy-deep text-primary-foreground">
+        <div className="container flex h-9 items-center justify-between text-xs">
+          <div className="hidden items-center gap-5 sm:flex">
+            <span className="flex items-center gap-1.5"><Phone className="h-3 w-3" /> (800) 555-0142</span>
+            <span className="flex items-center gap-1.5"><Mail className="h-3 w-3" /> intake@medinjuryclaims.com</span>
           </div>
-          <div className="flex items-center gap-2 text-primary-foreground/80">
-            <Clock className="h-3.5 w-3.5" />
-            <span>Free consultation, available 24/7</span>
+          <div className="flex items-center gap-1.5 text-primary-foreground/70">
+            <Clock className="h-3 w-3" /> Free consultation · Available 24/7
           </div>
         </div>
       </div>
 
-      {/* Header / Nav */}
+      {/* Header */}
       <header className="border-b border-border bg-background">
         <div className="container flex h-20 items-center justify-between">
-          <a href="#top" className="flex items-baseline gap-2">
-            <span className="font-serif text-2xl font-black text-navy">Med Injury Claims</span>
-            <span className="hidden text-xs uppercase tracking-widest text-muted-foreground sm:inline">Attorneys at Law</span>
+          <a href="#top" className="flex items-center gap-3">
+            <div className="grid h-10 w-10 place-items-center border-2 border-navy font-serif text-lg font-black text-navy">M</div>
+            <div className="leading-tight">
+              <div className="font-serif text-lg font-black text-navy">Med Injury Claims</div>
+              <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Attorney Referral Service</div>
+            </div>
           </a>
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav className="hidden items-center gap-7 lg:flex">
             {nav.map((n) => (
-              <a key={n.href} href={n.href} className="text-sm font-semibold text-navy hover:text-gold">
+              <a key={n.href} href={n.href} className="text-sm font-semibold text-navy hover:text-brand-red">
                 {n.label}
               </a>
             ))}
           </nav>
-          <Button asChild className="bg-gold text-accent-foreground hover:bg-gold/90">
+          <Button asChild className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark">
             <a href="#contact">Free Case Review</a>
           </Button>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="border-b border-border bg-surface">
-        <div className="container grid gap-12 py-16 lg:grid-cols-2 lg:items-center lg:py-24">
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-10 bg-gold" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Trusted Legal Representation</span>
+      {/* Hero — page title banner */}
+      <section
+        className="relative border-b border-border bg-navy-deep text-primary-foreground"
+        style={{
+          backgroundImage: `linear-gradient(rgba(10,14,25,0.82), rgba(10,14,25,0.9)), url(${courthouse})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="container py-20 lg:py-28">
+          <div className="max-w-3xl">
+            <div className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-brand-red">
+              Free · Confidential Case Review
             </div>
-            <h1 className="font-serif text-4xl font-black leading-tight text-navy sm:text-5xl lg:text-6xl">
-              Advocating for Those Injured by Defective Drugs and Medical Devices.
+            <h1 className="font-serif text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+              Mass Tort & Personal Injury Investigation
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              For over 25 years, our attorneys have helped injured consumers pursue fair compensation from
-              pharmaceutical manufacturers and medical device companies. Every consultation is free and confidential.
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
+              Injured by a defective product, medication, or the negligence of a major company?
+              You may qualify for financial compensation through an ongoing lawsuit or individual claim.
+              Speak with a qualified attorney — at no cost and no obligation.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="bg-navy hover:bg-navy-deep">
-                <a href="#contact">Request a Free Consultation</a>
+              <Button asChild size="lg" className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark">
+                <a href="#contact">Check If You Qualify</a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-navy text-navy hover:bg-navy hover:text-primary-foreground">
-                <a href="#practice">View Practice Areas</a>
+              <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-navy">
+                <a href="#lawsuits">View Active Lawsuits</a>
               </Button>
             </div>
-            <div className="mt-8 flex items-center gap-2 text-sm text-muted-foreground">
-              <Phone className="h-4 w-4 text-gold" />
-              Call now for a confidential review: <a href="tel:8005550142" className="font-semibold text-navy hover:underline">(800) 555-0142</a>
-            </div>
-          </div>
-
-          <div className="relative">
-            <img
-              src={officeImg}
-              alt="Law firm office interior"
-              width={1200}
-              height={900}
-              className="w-full border border-border object-cover shadow-md"
-            />
-            <div className="absolute -bottom-6 -left-6 hidden max-w-xs border border-border bg-background p-5 shadow-md sm:block">
-              <div className="text-xs font-semibold uppercase tracking-widest text-gold">Our Commitment</div>
-              <p className="mt-2 font-serif text-lg leading-snug text-navy">
-                "No fee unless we recover compensation for you."
-              </p>
+            <div className="mt-8 flex flex-wrap items-center gap-6 text-xs text-primary-foreground/70">
+              <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> 100% Confidential</span>
+              <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" /> No Obligation</span>
+              <span className="flex items-center gap-1.5"><Scale className="h-3.5 w-3.5" /> Nationwide Attorneys</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats strip */}
-      <section className="border-b border-border bg-navy text-primary-foreground">
-        <div className="container grid grid-cols-2 gap-8 py-12 md:grid-cols-4">
-          {stats.map((s) => (
-            <div key={s.l} className="text-center">
-              <div className="font-serif text-4xl font-black text-primary-foreground">{s.k}</div>
-              <div className="mt-1 text-sm uppercase tracking-wider text-primary-foreground/75">{s.l}</div>
-            </div>
-          ))}
+      {/* Intro */}
+      <section className="border-b border-border">
+        <div className="container max-w-4xl py-16 text-center">
+          <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">
+            Justice for Victims of Negligence and Corporate Misconduct
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground">
+            Over the past few years, alarming reports have surfaced of consumers being <strong className="text-navy">harmed by defective drugs,
+            unsafe medical devices, and dangerous consumer products</strong> across the United States. If you or someone you
+            love was injured, you may be entitled to <strong className="text-navy">significant compensation</strong> through
+            an ongoing <strong className="text-navy">mass tort or individual lawsuit.</strong>
+          </p>
+          <div className="mt-8">
+            <Button asChild className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark uppercase tracking-wider">
+              <a href="#contact">Do You Qualify to Join a Lawsuit?</a>
+            </Button>
+          </div>
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="border-b border-border">
-        <div className="container grid gap-12 py-20 lg:grid-cols-[1fr_1.4fr]">
+      {/* What's happening */}
+      <section id="about" className="border-b border-border bg-surface">
+        <div className="container grid gap-12 py-16 lg:grid-cols-2 lg:items-center">
+          <img
+            src={consult}
+            alt="Attorney consulting with a client"
+            width={1200}
+            height={900}
+            loading="lazy"
+            className="w-full border border-border object-cover shadow-md"
+          />
           <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-10 bg-gold" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">About Our Firm</span>
-            </div>
-            <h2 className="font-serif text-3xl font-black leading-tight text-navy sm:text-4xl">
-              A firm built on experience, integrity, and results.
-            </h2>
-          </div>
-          <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
-            <p>
-              Med Injury Claims is a nationally recognized legal practice focused on pharmaceutical injury,
-              defective medical device, and manufacturer negligence litigation. Our attorneys have handled
-              matters in every U.S. jurisdiction and worked alongside leading firms in some of the country's
-              largest multidistrict litigations.
+            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">What's Happening?</h2>
+            <p className="mt-4 text-muted-foreground">
+              In recent years, multiple <strong className="text-navy">nationwide legal actions</strong> have been filed against major
+              manufacturers, pharmaceutical companies, and digital platforms, alleging:
             </p>
-            <p>
-              We take a straightforward approach: careful review of every claim, honest guidance about the
-              strength of your case, and dedicated representation from intake through resolution. There is
-              no cost to speak with our team, and no obligation to proceed after your consultation.
-            </p>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            <ul className="mt-5 space-y-2.5 text-sm text-navy">
               {[
-                "Licensed nationwide",
-                "Contingency-fee representation",
-                "Confidential case review",
-                "Multi-district litigation experience",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-2 text-sm text-navy">
-                  <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-                  {item}
+                "Negligent safety testing and quality control",
+                "Failure to warn consumers of known risks",
+                "Inadequate reporting and safety protocols",
+                "Concealment of adverse events and injuries",
+              ].map((i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" /> {i}
                 </li>
               ))}
             </ul>
+            <p className="mt-5 text-muted-foreground">
+              These lawsuits aim to hold companies accountable and provide financial recovery for victims of
+              negligence, defective products, and corporate misconduct.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Practice Areas */}
-      <section id="practice" className="border-b border-border bg-surface">
-        <div className="container py-20">
+      {/* Qualification */}
+      <section className="border-b border-border">
+        <div className="container max-w-3xl py-16">
+          <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Do You Qualify to Join a Lawsuit?</h2>
+          <p className="mt-3 text-sm text-muted-foreground">You may be eligible if:</p>
+          <ul className="mt-6 space-y-3">
+            {eligibility.map((e) => (
+              <li key={e} className="flex items-start gap-3 border-b border-border pb-3 text-sm text-navy">
+                <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" /> {e}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-sm text-muted-foreground">
+            A confidential, no-obligation case review can help determine if your situation qualifies for legal action.
+          </p>
+          <div className="mt-6">
+            <Button asChild size="lg" className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark uppercase tracking-wider">
+              <a href="#contact">Start My Free Case Review</a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Active lawsuits */}
+      <section id="lawsuits" className="border-b border-border bg-surface">
+        <div className="container py-16">
           <div className="mx-auto max-w-2xl text-center">
-            <div className="mb-4 flex items-center justify-center gap-3">
-              <span className="h-px w-10 bg-gold" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Practice Areas</span>
-              <span className="h-px w-10 bg-gold" />
-            </div>
-            <h2 className="font-serif text-3xl font-black leading-tight text-navy sm:text-4xl">
-              Comprehensive representation across pharmaceutical and product liability matters.
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Our attorneys handle a wide range of claims involving injuries caused by defective drugs,
-              medical devices, and consumer products.
+            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Active Lawsuits & Investigations</h2>
+            <p className="mt-3 text-muted-foreground">
+              Our legal partners are currently accepting claims across the following practice areas.
             </p>
           </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {practiceAreas.map((p, i) => (
-              <article key={p.title} className="border border-border bg-background p-7 shadow-sm transition-shadow hover:shadow-md">
-                <div className="font-serif text-sm text-gold">{String(i + 1).padStart(2, "0")}</div>
-                <h3 className="mt-2 font-serif text-xl font-bold text-navy">{p.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
-                <a href="#contact" className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-gold">
-                  Learn more <ChevronRight className="h-4 w-4" />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {lawsuits.map((l, i) => (
+              <article key={l.t} className="border border-border bg-background p-6 shadow-sm transition hover:shadow-md">
+                <div className="font-serif text-xs font-bold text-brand-red">CASE {String(i + 1).padStart(2, "0")}</div>
+                <h3 className="mt-2 font-serif text-lg font-bold text-navy">{l.t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
+                <a href="#contact" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red">
+                  Assess your case <ChevronRight className="h-4 w-4" />
                 </a>
               </article>
             ))}
@@ -209,198 +237,184 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Process / Results */}
-      <section id="results" className="border-b border-border">
-        <div className="container grid gap-12 py-20 lg:grid-cols-2">
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-10 bg-gold" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Our Process</span>
-            </div>
-            <h2 className="font-serif text-3xl font-black leading-tight text-navy sm:text-4xl">
-              What to expect when you contact our firm.
-            </h2>
-            <ol className="mt-8 space-y-6">
-              {[
-                { t: "Initial Consultation", d: "Speak with an intake specialist about your situation at no cost and no obligation." },
-                { t: "Case Review", d: "Our attorneys review your claim against active litigation criteria and current medical evidence." },
-                { t: "Representation", d: "If your claim qualifies, we handle the case on a contingency-fee basis — no fee unless we recover." },
-                { t: "Resolution", d: "We negotiate settlements or litigate in court, keeping you informed at every stage." },
-              ].map((s, i) => (
-                <li key={s.t} className="flex gap-5 border-b border-border pb-6 last:border-b-0">
-                  <div className="grid h-10 w-10 shrink-0 place-items-center bg-navy font-serif text-lg font-bold text-primary-foreground">
-                    {i + 1}
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-lg font-bold text-navy">{s.t}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{s.d}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+      {/* What you'll receive */}
+      <section className="border-b border-border">
+        <div className="container py-16">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-red">100% Confidential · No Obligation · Free Consultation</div>
+            <h2 className="mt-3 font-serif text-2xl font-black text-navy sm:text-3xl">What You'll Receive</h2>
           </div>
-
-          <div className="bg-surface p-10">
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-10 bg-gold" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Client Testimonial</span>
-            </div>
-            <blockquote className="font-serif text-2xl leading-snug text-navy">
-              "From my first call, the team explained every step in plain language. They took my case seriously
-              when other firms wouldn't return my calls. I'm grateful for their persistence and professionalism."
-            </blockquote>
-            <div className="mt-8 border-t border-border pt-6">
-              <div className="font-semibold text-navy">Margaret L.</div>
-              <div className="text-sm text-muted-foreground">Client, Pharmaceutical Injury Claim</div>
-            </div>
-
-            <div className="mt-10 grid grid-cols-2 gap-6 border-t border-border pt-8">
-              <div>
-                <div className="font-serif text-3xl font-black text-navy">98%</div>
-                <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">Client Satisfaction</div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {receive.map((r) => (
+              <div key={r.t} className="border-l-2 border-brand-red bg-surface p-5">
+                <h3 className="font-serif text-base font-bold text-navy">{r.t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{r.d}</p>
               </div>
-              <div>
-                <div className="font-serif text-3xl font-black text-navy">24 hr</div>
-                <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">Response Time</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="border-b border-border bg-surface">
-        <div className="container grid gap-12 py-20 lg:grid-cols-[1fr_1.2fr]">
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-10 bg-gold" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Free Consultation</span>
-            </div>
-            <h2 className="font-serif text-3xl font-black leading-tight text-navy sm:text-4xl">
-              Request a confidential case review.
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Complete the form or reach us directly. All communications are confidential and there is no
-              obligation to proceed after your consultation.
-            </p>
+      {/* FAQ */}
+      <section id="faq" className="border-b border-border bg-surface">
+        <div className="container max-w-3xl py-16">
+          <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Frequently Asked Questions</h2>
+          <div className="mt-8 divide-y divide-border border-y border-border">
+            {faqs.map((f) => (
+              <details key={f.q} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-base font-bold text-navy">
+                  {f.q}
+                  <ChevronRight className="h-4 w-4 shrink-0 text-brand-red transition-transform group-open:rotate-90" />
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="mt-8 space-y-5 border-t border-border pt-8">
-              <div className="flex items-start gap-4">
-                <Phone className="mt-0.5 h-5 w-5 text-gold" />
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Telephone</div>
-                  <div className="font-serif text-lg text-navy">(800) 555-0142</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <Mail className="mt-0.5 h-5 w-5 text-gold" />
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Email</div>
-                  <div className="font-serif text-lg text-navy">intake@medinjuryclaims.com</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <MapPin className="mt-0.5 h-5 w-5 text-gold" />
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Main Office</div>
-                  <div className="font-serif text-lg text-navy">1200 Market Street, Suite 400<br />Philadelphia, PA 19107</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <Clock className="mt-0.5 h-5 w-5 text-gold" />
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Hours</div>
-                  <div className="font-serif text-lg text-navy">Available 24/7 for new claims</div>
-                </div>
-              </div>
-            </div>
+      {/* Case Review Form */}
+      <section id="contact" className="border-b border-border">
+        <div className="container max-w-4xl py-16">
+          <div className="text-center">
+            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Take the First Step Toward Justice</h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
+              You don't have to face this alone. Click below to start your <strong className="text-navy">free, confidential case review</strong> — it only takes 30 seconds.
+            </p>
           </div>
 
-          <form onSubmit={onSubmit} className="border border-border bg-background p-8 shadow-sm">
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="fname" className="text-navy">First Name</Label>
-                <Input id="fname" required className="h-11 rounded-none border-border" />
+          <form onSubmit={onSubmit} className="mt-10 border border-border bg-background p-6 shadow-sm sm:p-10">
+            <h3 className="font-serif text-2xl font-black text-navy">Case Review</h3>
+            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <Label htmlFor="fname" className="text-navy">First Name <span className="text-brand-red">*</span></Label>
+                <Input id="fname" required placeholder="First Name" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="lname" className="text-navy">Last Name</Label>
-                <Input id="lname" required className="h-11 rounded-none border-border" />
+              <div className="space-y-1.5">
+                <Label htmlFor="lname" className="text-navy">Last Name <span className="text-brand-red">*</span></Label>
+                <Input id="lname" required placeholder="Last Name" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-navy">Email Address</Label>
-                <Input id="email" required type="email" className="h-11 rounded-none border-border" />
+              <div className="space-y-1.5">
+                <Label htmlFor="email" className="text-navy">Email <span className="text-brand-red">*</span></Label>
+                <Input id="email" required type="email" placeholder="Email" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-navy">Phone Number</Label>
-                <Input id="phone" required type="tel" className="h-11 rounded-none border-border" />
+              <div className="space-y-1.5">
+                <Label htmlFor="phone" className="text-navy">Phone / Mobile <span className="text-brand-red">*</span></Label>
+                <Input id="phone" required type="tel" placeholder="Mobile Number" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
               </div>
-              <div className="space-y-2 sm:col-span-2">
-                <Label htmlFor="type" className="text-navy">Type of Claim</Label>
+              <div className="space-y-1.5 sm:col-span-2">
+                <Label htmlFor="address" className="text-navy">Address</Label>
+                <Input id="address" placeholder="Address Line 1" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="city" className="text-navy">City</Label>
+                <Input id="city" placeholder="City" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <Label htmlFor="state" className="text-navy">State</Label>
+                  <Input id="state" placeholder="State" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="zip" className="text-navy">Zip Code <span className="text-brand-red">*</span></Label>
+                  <Input id="zip" required placeholder="Zip" className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none focus-visible:ring-0" />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-navy">Type of claim <span className="text-brand-red">*</span></Label>
                 <Select>
-                  <SelectTrigger id="type" className="h-11 rounded-none border-border">
-                    <SelectValue placeholder="Select the closest match" />
+                  <SelectTrigger className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none">
+                    <SelectValue placeholder="- Select -" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="rideshare">Rideshare Abuse</SelectItem>
+                    <SelectItem value="roblox">Roblox / Online Platform Abuse</SelectItem>
                     <SelectItem value="drug">Defective Medication</SelectItem>
                     <SelectItem value="device">Medical Device Failure</SelectItem>
-                    <SelectItem value="implant">Defective Implant</SelectItem>
-                    <SelectItem value="negligence">Manufacturer Negligence</SelectItem>
+                    <SelectItem value="toxic">Toxic Exposure</SelectItem>
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <div className="space-y-2 sm:col-span-2">
-                <Label htmlFor="msg" className="text-navy">Brief Description of Your Case</Label>
-                <Textarea id="msg" required rows={5} className="rounded-none border-border" placeholder="Please describe your injury, the product involved, and approximate dates." />
+              <div className="space-y-1.5">
+                <Label className="text-navy">State where incident occurred</Label>
+                <Select>
+                  <SelectTrigger className="h-11 rounded-none border-x-0 border-t-0 border-b border-border px-0 shadow-none">
+                    <SelectValue placeholder="- Select -" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {["CA","TX","NY","FL","PA","IL","OH","GA","NC","MI","Other"].map((s) => (
+                      <SelectItem key={s} value={s}>{s}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-1.5 sm:col-span-2">
+                <Label htmlFor="desc" className="text-navy">Brief Description (Optional)</Label>
+                <Textarea id="desc" rows={4} placeholder="Please describe what happened briefly (optional)" className="rounded-none border-border" />
+              </div>
+              <div className="sm:col-span-2 flex items-start gap-3 pt-2">
+                <Checkbox id="consent" required className="mt-1" />
+                <Label htmlFor="consent" className="text-xs font-normal leading-relaxed text-muted-foreground">
+                  By checking the box, you agree to be contacted about your potential case or promotional legal offers sent by or on
+                  behalf of Med Injury Claims and/or participating law firms. You may receive live calls, automated calls, emails, or
+                  text messages at the phone number provided above even if you are on a national or state "Do Not Call" list. Consent
+                  is not a condition of any purchase.
+                </Label>
               </div>
             </div>
-            <Button type="submit" size="lg" className="mt-6 w-full bg-navy hover:bg-navy-deep">
-              Submit for Free Review
+            <Button type="submit" size="lg" className="mt-8 w-full rounded-none bg-brand-red text-primary-foreground hover:bg-brand-red-dark">
+              Submit
             </Button>
-            <p className="mt-4 text-xs text-muted-foreground">
-              By submitting this form you agree to be contacted regarding your inquiry. Submissions are
-              confidential and not shared with third parties.
-            </p>
           </form>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="bg-navy-deep text-primary-foreground">
-        <div className="container grid gap-10 py-14 lg:grid-cols-4">
-          <div className="lg:col-span-2">
-            <div className="font-serif text-2xl font-black">Med Injury Claims</div>
-            <div className="mt-1 text-xs uppercase tracking-widest text-primary-foreground/60">Attorneys at Law</div>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-primary-foreground/75">
-              A nationally recognized legal practice focused on pharmaceutical injury, defective medical
-              device, and manufacturer negligence litigation. Serving clients in all 50 states.
+        <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="grid h-10 w-10 place-items-center border-2 border-primary-foreground/50 font-serif text-lg font-black">M</div>
+              <div>
+                <div className="font-serif text-lg font-black">Med Injury Claims</div>
+                <div className="text-[10px] uppercase tracking-[0.2em] text-primary-foreground/60">Attorney Referral Service</div>
+              </div>
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
+              Med Injury Claims helps individuals harmed by dangerous drugs, medical devices, or toxic exposures get connected to
+              trusted legal professionals. We're not a law firm — we're your first step toward justice.
             </p>
           </div>
           <div>
-            <div className="text-sm font-semibold uppercase tracking-widest text-primary-foreground">Navigation</div>
-            <ul className="mt-4 space-y-2 text-sm text-primary-foreground/75">
+            <div className="text-sm font-semibold uppercase tracking-widest">Quick Links</div>
+            <ul className="mt-4 space-y-2 text-sm text-primary-foreground/70">
               {nav.map((n) => (
-                <li key={n.href}><a href={n.href} className="hover:text-gold">{n.label}</a></li>
+                <li key={n.href}><a href={n.href} className="hover:text-brand-red">{n.label}</a></li>
               ))}
             </ul>
           </div>
           <div>
-            <div className="text-sm font-semibold uppercase tracking-widest text-primary-foreground">Contact</div>
-            <ul className="mt-4 space-y-2 text-sm text-primary-foreground/75">
-              <li>(800) 555-0142</li>
-              <li>intake@medinjuryclaims.com</li>
-              <li>1200 Market Street, Suite 400<br />Philadelphia, PA 19107</li>
+            <div className="text-sm font-semibold uppercase tracking-widest">Legal</div>
+            <ul className="mt-4 space-y-2 text-sm text-primary-foreground/70">
+              <li><a href="#" className="hover:text-brand-red">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-brand-red">Terms & Conditions</a></li>
+              <li><a href="#" className="hover:text-brand-red">Attorney Advertising Disclaimer</a></li>
+            </ul>
+          </div>
+          <div>
+            <div className="text-sm font-semibold uppercase tracking-widest">Contact Us</div>
+            <ul className="mt-4 space-y-2 text-sm text-primary-foreground/70">
+              <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> intake@medinjuryclaims.com</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> (800) 555-0142</li>
             </ul>
           </div>
         </div>
         <div className="border-t border-primary-foreground/15">
-          <div className="container flex flex-col items-start justify-between gap-2 py-6 text-xs text-primary-foreground/60 sm:flex-row sm:items-center">
-            <div>© {new Date().getFullYear()} Med Injury Claims. All rights reserved.</div>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-gold">Privacy Policy</a>
-              <a href="#" className="hover:text-gold">Terms of Service</a>
-              <a href="#" className="hover:text-gold">Attorney Advertising Disclaimer</a>
-            </div>
+          <div className="container py-6 text-center text-xs leading-relaxed text-primary-foreground/50">
+            Disclaimer: Med Injury Claims is not a law firm and does not provide legal advice. We connect individuals with law firms
+            who may offer legal representation. This is attorney advertising. Results vary.
+            <div className="mt-1">© {new Date().getFullYear()} Med Injury Claims. All rights reserved.</div>
           </div>
         </div>
       </footer>
