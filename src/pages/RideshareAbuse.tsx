@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2, Check, AlertTriangle, Car } from "lucide-react";
 import { z } from "zod";
@@ -93,7 +93,7 @@ export default function RideshareAbuse() {
   const [submitting, setSubmitting] = useState(false);
   const [certRef, setCertRef] = useState("");
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);

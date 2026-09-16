@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ export default function AdminAuth() {
     if (!loading && session && isAdmin) nav("/admin", { replace: true });
   }, [session, isAdmin, loading, nav]);
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     setBusy(true);
     try {
