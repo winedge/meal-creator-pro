@@ -42,18 +42,18 @@ let initialized = false;
 
 function getAdSettings(): Promise<AdSettings | null> {
   if (!settingsPromise) {
-    settingsPromise = supabase
-      .from("ad_settings")
-      .select("meta_pixel_id, google_ads_id, google_conversion_label, tracking_enabled")
-      .limit(1)
-      .maybeSingle()
-      .then(({ data, error }) => {
-        if (error) {
-          console.error("[ads] settings load failed", error);
-          return null;
-        }
-        return (data as AdSettings | null) ?? null;
-      });
+    settingsPromise = (async () => {
+      const { data, error } = await supabase
+        .from("ad_settings")
+        .select("meta_pixel_id, google_ads_id, google_conversion_label, tracking_enabled")
+        .limit(1)
+        .maybeSingle();
+      if (error) {
+        console.error("[ads] settings load failed", error);
+        return null;
+      }
+      return (data as AdSettings | null) ?? null;
+    })();
   }
   return settingsPromise;
 }
