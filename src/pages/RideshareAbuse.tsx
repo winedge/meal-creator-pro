@@ -94,6 +94,10 @@ export default function RideshareAbuse() {
   const [submitting, setSubmitting] = useState(false);
   const [certRef, setCertRef] = useState("");
 
+  useEffect(() => {
+    void initAdTracking();
+  }, []);
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -158,6 +162,7 @@ export default function RideshareAbuse() {
 
     setCertRef(trustedFormCertUrl ? trustedFormCertUrl.slice(-12) : "pending");
     setSubmitted(true);
+    void trackLeadConversion();
     form.reset();
   };
 
