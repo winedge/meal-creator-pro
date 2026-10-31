@@ -477,7 +477,7 @@ export default function RideshareAbuse() {
           <div>
             <div className="text-sm font-semibold uppercase tracking-widest">Legal</div>
             <ul className="mt-4 space-y-2 text-sm text-primary-foreground/70">
-              <li><a href="#" className="hover:text-brand-red">Privacy Policy</a></li>
+              <li><a href="/privacy" className="hover:text-brand-red">Privacy Policy</a></li>
               <li><a href="#" className="hover:text-brand-red">Terms & Conditions</a></li>
               <li><a href="#" className="hover:text-brand-red">Attorney Advertising Disclaimer</a></li>
             </ul>
