@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      ad_secrets: {
+        Row: {
+          id: boolean
+          meta_capi_access_token: string
+          updated_at: string
+        }
+        Insert: {
+          id?: boolean
+          meta_capi_access_token?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: boolean
+          meta_capi_access_token?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      ad_settings: {
+        Row: {
+          google_ads_id: string
+          google_conversion_label: string
+          id: boolean
+          meta_pixel_id: string
+          tracking_enabled: boolean
+          updated_at: string
+        }
+        Insert: {
+          google_ads_id?: string
+          google_conversion_label?: string
+          id?: boolean
+          meta_pixel_id?: string
+          tracking_enabled?: boolean
+          updated_at?: string
+        }
+        Update: {
+          google_ads_id?: string
+          google_conversion_label?: string
+          id?: boolean
+          meta_pixel_id?: string
+          tracking_enabled?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       submissions: {
         Row: {
           address: string | null

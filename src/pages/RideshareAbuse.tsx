@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import { initAdTracking, trackLeadConversion } from "@/lib/adsTracking";
 import { Link } from "react-router-dom";
 import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2, Check, AlertTriangle, Car } from "lucide-react";
 import { z } from "zod";
@@ -93,6 +94,10 @@ export default function RideshareAbuse() {
   const [submitting, setSubmitting] = useState(false);
   const [certRef, setCertRef] = useState("");
 
+  useEffect(() => {
+    void initAdTracking();
+  }, []);
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -157,6 +162,7 @@ export default function RideshareAbuse() {
 
     setCertRef(trustedFormCertUrl ? trustedFormCertUrl.slice(-12) : "pending");
     setSubmitted(true);
+    void trackLeadConversion();
     form.reset();
   };
 
@@ -471,7 +477,7 @@ export default function RideshareAbuse() {
           <div>
             <div className="text-sm font-semibold uppercase tracking-widest">Legal</div>
             <ul className="mt-4 space-y-2 text-sm text-primary-foreground/70">
-              <li><a href="#" className="hover:text-brand-red">Privacy Policy</a></li>
+              <li><a href="/privacy" className="hover:text-brand-red">Privacy Policy</a></li>
               <li><a href="#" className="hover:text-brand-red">Terms & Conditions</a></li>
               <li><a href="#" className="hover:text-brand-red">Attorney Advertising Disclaimer</a></li>
             </ul>

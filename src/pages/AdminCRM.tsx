@@ -141,6 +141,7 @@ export default function AdminCRM({ presetClaim }: { presetClaim?: string } = {})
           {[
             { to: "/admin", label: "All Submissions", active: !presetClaim },
             { to: "/admin/rideshare", label: "Rideshare Abuse", active: presetClaim === "rideshare" },
+            { to: "/admin/settings", label: "Ad Tracking", active: false },
           ].map((t) => (
             <Link
               key={t.to}
