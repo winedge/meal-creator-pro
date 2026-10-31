@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import { initAdTracking, trackLeadConversion } from "@/lib/adsTracking";
 import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2, Check } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -74,6 +75,10 @@ export default function Index() {
 
   const [submitting, setSubmitting] = useState(false);
 
+  useEffect(() => {
+    void initAdTracking();
+  }, []);
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -131,6 +136,7 @@ export default function Index() {
 
     setCertRef(trustedFormCertUrl ? trustedFormCertUrl.slice(-12) : "pending");
     setSubmitted(true);
+    void trackLeadConversion();
     form.reset();
   };
 

@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import { initAdTracking, trackLeadConversion } from "@/lib/adsTracking";
 import { Link } from "react-router-dom";
 import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2, Check, AlertTriangle, Car } from "lucide-react";
 import { z } from "zod";
