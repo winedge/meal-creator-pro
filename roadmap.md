@@ -1,9 +1,10 @@
 # Roadmap
 
-- [ ] Meta Pixel + Google Ads conversion tracking, manual config (no connectors; user provides IDs)
-  - [ ] Admin Settings tab where the user pastes IDs (pixel ID, Google AW-ID, conversion label, Meta CAPI token)
-  - [ ] Consent decision: regional banner vs skip consent regions (ask before installing)
-  - [ ] Meta health-data eligibility: user confirms no data restrictions on dataset in Events Manager before wiring events
-  - [ ] Install gtag + Meta Pixel base code, fire conversion events on form submit (both forms)
-  - [ ] Add privacy policy naming data/recipients/purposes
-  - [ ] Publish + verify tag fires end-to-end before any campaign spend
+- [x] Meta Pixel + Google Ads conversion tracking, manual config (no connectors)
+  - [x] Admin → Ad Tracking tab for Meta Pixel ID, CAPI token, Google AW-ID + label, master switch
+  - [x] Consent route: no banner, tags blocked in EEA/UK/CH and unresolved regions
+  - [x] Browser Pixel + Google tag load from saved settings; Lead + conversion fire on both form submissions
+  - [x] meta-capi edge function sends the server event with the shared event id (deployed, verified reachable)
+  - [x] Privacy policy at /privacy naming data, recipients, purposes; linked in both footers
+- [ ] User: paste real IDs in Admin → Ad Tracking, then publish
+- [ ] After publishing: verify a test Lead arrives in Meta Events Manager and Google Ads (needs live domain + real IDs)
