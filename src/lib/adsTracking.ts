@@ -171,10 +171,12 @@ function readCookie(name: string): string | undefined {
 export async function initAdTracking(): Promise<void> {
   if (initialized) return;
   const [settings, permitted] = await Promise.all([getAdSettings(), regionPermitsTracking()]);
+  debugLog("settings loaded:", !!settings, "- tracking switch:", settings?.tracking_enabled ?? "n/a");
   if (!settings || !settings.tracking_enabled || !permitted) return;
   initialized = true;
   if (settings.google_ads_id) loadGtag(settings.google_ads_id);
   if (settings.meta_pixel_id) loadMetaPixel(settings.meta_pixel_id);
+  debugLog("Meta Pixel loaded:", !!settings.meta_pixel_id, "- Google tag loaded:", !!settings.google_ads_id);
 }
 
 /**
