@@ -89,13 +89,21 @@ async function countryFromServer(): Promise<string> {
   }
 }
 
+// Visit any page with ?ads_debug=1 to see the tracking decision in the console.
+const adsDebug =
+  typeof window !== "undefined" && new URLSearchParams(window.location.search).has("ads_debug");
+function debugLog(...args: unknown[]) {
+  if (adsDebug) console.info("[ads]", ...args);
+}
+
 function regionPermitsTracking(): Promise<boolean> {
   if (!regionPromise) {
     regionPromise = (async () => {
       let loc = await countryFromTrace();
       if (!loc || loc === "XX") loc = await countryFromServer();
-      if (!loc || loc === "XX" || loc === "T1") return false;
-      return !CONSENT_REGIONS.has(loc);
+      const permitted = !(!loc || loc === "XX" || loc === "T1") && !CONSENT_REGIONS.has(loc);
+      debugLog("visitor country:", loc || "unknown", "- tracking", permitted ? "allowed" : "blocked");
+      return permitted;
     })();
   }
   return regionPromise;
@@ -163,10 +171,12 @@ function readCookie(name: string): string | undefined {
 export async function initAdTracking(): Promise<void> {
   if (initialized) return;
   const [settings, permitted] = await Promise.all([getAdSettings(), regionPermitsTracking()]);
+  debugLog("settings loaded:", !!settings, "- tracking switch:", settings?.tracking_enabled ?? "n/a");
   if (!settings || !settings.tracking_enabled || !permitted) return;
   initialized = true;
   if (settings.google_ads_id) loadGtag(settings.google_ads_id);
   if (settings.meta_pixel_id) loadMetaPixel(settings.meta_pixel_id);
+  debugLog("Meta Pixel loaded:", !!settings.meta_pixel_id, "- Google tag loaded:", !!settings.google_ads_id);
 }
 
 /**
