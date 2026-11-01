@@ -32,6 +32,7 @@ declare global {
   interface Window {
     fbq?: Fbq;
     _fbq?: Fbq;
+    medInjuryLoadMetaPixel?: (pixelId: string) => void;
     dataLayer?: unknown[];
   }
 }
@@ -117,34 +118,14 @@ function loadGtag(googleAdsId: string) {
   document.head.appendChild(s);
   window.dataLayer = window.dataLayer || [];
   const gtag = (...args: unknown[]) => {
-    window.dataLayer!.push(args);
+    window.dataLayer?.push(args);
   };
   gtag("js", new Date());
   gtag("config", googleAdsId);
 }
 
 function loadMetaPixel(pixelId: string) {
-  if (window.fbq && window.fbq.loaded) return;
-  const w = window;
-  const fbq: Fbq = function (...args: unknown[]) {
-    if (fbq.callMethod) {
-      fbq.callMethod.apply(fbq, args);
-    } else {
-      (fbq.queue as unknown[]).push(args);
-    }
-  } as Fbq;
-  if (!w._fbq) w._fbq = fbq;
-  fbq.push = fbq;
-  fbq.loaded = true;
-  fbq.version = "2.0";
-  fbq.queue = [];
-  w.fbq = fbq;
-  const s = document.createElement("script");
-  s.async = true;
-  s.src = "https://connect.facebook.net/en_US/fbevents.js";
-  document.head.appendChild(s);
-  fbq("init", pixelId, {}, { agent: "lovable" });
-  fbq("track", "PageView");
+  window.medInjuryLoadMetaPixel?.(pixelId);
 }
 
 function fbqCall(...args: unknown[]) {
