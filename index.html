@@ -17,6 +17,34 @@
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- Meta Pixel base setup. Activated only after the app verifies regional
+         tracking permission and loads the Pixel ID from Admin > Ad Tracking.
+         No unconditional script or noscript beacon: blocked visitors send no hits. -->
+    <script id="medinjury-meta-pixel">
+      window.medInjuryLoadMetaPixel = function (pixelId) {
+        if (!/^\d+$/.test(pixelId)) return;
+        if (window.fbq && window.fbq.loaded) return;
+        var fbq = function () {
+          if (fbq.callMethod) {
+            fbq.callMethod.apply(fbq, arguments);
+          } else {
+            fbq.queue.push(Array.prototype.slice.call(arguments));
+          }
+        };
+        window.fbq = fbq;
+        if (!window._fbq) window._fbq = fbq;
+        fbq.push = fbq;
+        fbq.loaded = true;
+        fbq.version = '2.0';
+        fbq.queue = [];
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(script);
+        fbq('init', pixelId, {}, { agent: 'lovable' });
+        fbq('track', 'PageView');
+      };
+    </script>
   </head>
 
   <body>
