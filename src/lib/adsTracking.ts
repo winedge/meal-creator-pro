@@ -60,26 +60,42 @@ function getAdSettings(): Promise<AdSettings | null> {
 
 // True when tracking may run for this visitor; false in consent-required or
 // unresolved regions (chosen no-banner route blocks both).
+async function countryFromTrace(): Promise<string> {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 2000);
+    const res = await fetch("/cdn-cgi/trace", { signal: controller.signal });
+    clearTimeout(timer);
+    if (!res.ok) return "";
+    const text = await res.text();
+    const get = (key: string) =>
+      text.split("\n").find((l) => l.startsWith(`${key}=`))?.slice(key.length + 1).trim() ?? "";
+    // A rewrite proxy's trace belongs to another host — treat as unresolved.
+    if (get("h") && get("h") !== window.location.host) return "";
+    return get("loc");
+  } catch {
+    return "";
+  }
+}
+
+// Fallback for hosts without a Cloudflare trace endpoint.
+async function countryFromServer(): Promise<string> {
+  try {
+    const { data, error } = await supabase.functions.invoke("geo");
+    if (error) return "";
+    return typeof data?.country === "string" ? data.country : "";
+  } catch {
+    return "";
+  }
+}
+
 function regionPermitsTracking(): Promise<boolean> {
   if (!regionPromise) {
     regionPromise = (async () => {
-      try {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 2000);
-        const res = await fetch("/cdn-cgi/trace", { signal: controller.signal });
-        clearTimeout(timer);
-        if (!res.ok) return false;
-        const text = await res.text();
-        const get = (key: string) =>
-          text.split("\n").find((l) => l.startsWith(`${key}=`))?.slice(key.length + 1).trim() ?? "";
-        // A rewrite proxy's trace belongs to another host — treat as unresolved.
-        if (get("h") && get("h") !== window.location.host) return false;
-        const loc = get("loc");
-        if (!loc || loc === "XX" || loc === "T1") return false;
-        return !CONSENT_REGIONS.has(loc);
-      } catch {
-        return false;
-      }
+      let loc = await countryFromTrace();
+      if (!loc || loc === "XX") loc = await countryFromServer();
+      if (!loc || loc === "XX" || loc === "T1") return false;
+      return !CONSENT_REGIONS.has(loc);
     })();
   }
   return regionPromise;
