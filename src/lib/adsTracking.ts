@@ -89,13 +89,21 @@ async function countryFromServer(): Promise<string> {
   }
 }
 
+// Visit any page with ?ads_debug=1 to see the tracking decision in the console.
+const adsDebug =
+  typeof window !== "undefined" && new URLSearchParams(window.location.search).has("ads_debug");
+function debugLog(...args: unknown[]) {
+  if (adsDebug) console.info("[ads]", ...args);
+}
+
 function regionPermitsTracking(): Promise<boolean> {
   if (!regionPromise) {
     regionPromise = (async () => {
       let loc = await countryFromTrace();
       if (!loc || loc === "XX") loc = await countryFromServer();
-      if (!loc || loc === "XX" || loc === "T1") return false;
-      return !CONSENT_REGIONS.has(loc);
+      const permitted = !(!loc || loc === "XX" || loc === "T1") && !CONSENT_REGIONS.has(loc);
+      debugLog("visitor country:", loc || "unknown", "- tracking", permitted ? "allowed" : "blocked");
+      return permitted;
     })();
   }
   return regionPromise;
