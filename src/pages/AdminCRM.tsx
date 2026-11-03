@@ -13,6 +13,9 @@ import { generateSubmissionPdf, type Submission } from "@/lib/submissionPdf";
 import logo from "@/assets/medinjuryclaims-logo.png";
 
 const CLAIM_LABELS: Record<string, string> = {
+  mva: "Motor Vehicle Accident",
+  ssdi: "Social Security Disability",
+  // Legacy claim types kept so older submissions still display correctly
   rideshare: "Rideshare Abuse",
   roblox: "Roblox / Online Platform",
   drug: "Defective Medication",
@@ -23,21 +26,18 @@ const CLAIM_LABELS: Record<string, string> = {
 
 const STATUSES = ["new", "contacted", "qualified", "disqualified", "closed"] as const;
 
-export default function AdminCRM({ presetClaim }: { presetClaim?: string } = {}) {
+export default function AdminCRM() {
   const { session, isAdmin, loading } = useAdminAuth();
   const nav = useNavigate();
   const [rows, setRows] = useState<Submission[]>([]);
   const [fetching, setFetching] = useState(true);
 
   const [q, setQ] = useState("");
-  const [claim, setClaim] = useState<string>(presetClaim ?? "all");
+  const [claim, setClaim] = useState<string>("all");
   const [status, setStatus] = useState<string>("all");
   const [from, setFrom] = useState<string>("");
   const [to, setTo] = useState<string>("");
 
-  useEffect(() => {
-    setClaim(presetClaim ?? "all");
-  }, [presetClaim]);
 
 
   useEffect(() => {
@@ -139,8 +139,7 @@ export default function AdminCRM({ presetClaim }: { presetClaim?: string } = {})
         {/* Sub-nav tabs */}
         <div className="mb-6 flex flex-wrap gap-1 border-b border-border">
           {[
-            { to: "/admin", label: "All Submissions", active: !presetClaim },
-            { to: "/admin/rideshare", label: "Rideshare Abuse", active: presetClaim === "rideshare" },
+            { to: "/admin", label: "All Submissions", active: true },
             { to: "/admin/settings", label: "Ad Tracking", active: false },
           ].map((t) => (
             <Link
@@ -159,9 +158,7 @@ export default function AdminCRM({ presetClaim }: { presetClaim?: string } = {})
 
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-serif text-2xl font-black text-navy">
-              {presetClaim === "rideshare" ? "Rideshare Abuse Submissions" : "Submissions"}
-            </h1>
+            <h1 className="font-serif text-2xl font-black text-navy">Submissions</h1>
             <p className="text-sm text-muted-foreground">
               {filtered.length} of {rows.length} record{rows.length === 1 ? "" : "s"}
             </p>

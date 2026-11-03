@@ -98,7 +98,7 @@ export default function AdminSettings() {
         <div className="mb-6 flex flex-wrap gap-1 border-b border-border">
           {[
             { to: "/admin", label: "All Submissions", active: false },
-            { to: "/admin/rideshare", label: "Rideshare Abuse", active: false },
+            { to: "/admin", label: "All Submissions", active: false },
             { to: "/admin/settings", label: "Ad Tracking", active: true },
           ].map((t) => (
             <Link
