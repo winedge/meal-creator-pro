@@ -75,10 +75,10 @@ const receive = [
 ];
 
 const faqs = [
-  { q: "How much does it cost to speak with an attorney?", a: "Nothing. Every case review is free, confidential, and carries no obligation to proceed." },
-  { q: "How long do I have to file a claim?", a: "Statutes of limitations vary by state and claim type. The sooner you speak with a qualified attorney, the more options you preserve." },
+  { q: "How much does it cost to speak with an attorney?", a: "Nothing. Every case review is free, confidential, and carries no obligation to proceed. Most MVA and SSDI attorneys work on contingency - you pay nothing unless you win." },
+  { q: "My SSDI claim was already denied. Can you still help?", a: "Yes. Most initial applications are denied, and many people win benefits on appeal. Strict deadlines apply, so request a review as soon as possible after a denial." },
+  { q: "How long do I have to file an accident claim?", a: "Statutes of limitations vary by state, often one to three years from the date of the accident. The sooner you speak with a qualified attorney, the more options you preserve." },
   { q: "Will my information be shared?", a: "Your submission is reviewed only by our intake team and the participating law firms handling your matter." },
-  { q: "What if my case does not qualify?", a: "We will tell you honestly and, when possible, point you toward other resources at no cost." },
 ];
 
 export default function Index() {
@@ -202,12 +202,12 @@ export default function Index() {
               Free · Confidential Case Review
             </div>
             <h1 className="font-serif text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
-              Mass Tort & Personal Injury Investigation
+              Injured in an Accident or Unable to Work?
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
-              Injured by a defective product, medication, or the negligence of a major company?
-              You may qualify for financial compensation through an ongoing lawsuit or individual claim.
-              Speak with a qualified attorney - at no cost and no obligation.
+              We connect people hurt in motor vehicle accidents and those fighting for Social Security
+              Disability benefits with experienced attorneys. Find out what your case may be worth -
+              free, confidential, and with no obligation.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]">
