@@ -453,12 +453,8 @@ export default function Index() {
                     <SelectValue placeholder="- Select -" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="rideshare">Rideshare Abuse</SelectItem>
-                    <SelectItem value="roblox">Roblox / Online Platform Abuse</SelectItem>
-                    <SelectItem value="drug">Defective Medication</SelectItem>
-                    <SelectItem value="device">Medical Device Failure</SelectItem>
-                    <SelectItem value="toxic">Toxic Exposure</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="mva">Motor Vehicle Accident</SelectItem>
+                    <SelectItem value="ssdi">Social Security Disability (SSDI)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -504,8 +500,8 @@ export default function Index() {
           <div>
             <img src={logo} alt="Med Injury Claims" className="h-10 w-auto brightness-0 invert" />
             <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
-              Med Injury Claims helps individuals harmed by dangerous drugs, medical devices, or toxic exposures get connected to
-              trusted legal professionals. We're not a law firm - we're your first step toward justice.
+              Med Injury Claims helps people injured in motor vehicle accidents and those seeking Social Security
+              Disability benefits get connected to trusted legal professionals. We're not a law firm - we're your first step toward justice.
             </p>
           </div>
           <div>
