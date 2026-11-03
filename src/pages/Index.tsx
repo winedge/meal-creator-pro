@@ -13,6 +13,8 @@ import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/medinjuryclaims-logo.png";
 import courthouse from "@/assets/courthouse-hero.jpg";
 import consult from "@/assets/consult.jpg";
+import mvaAccident from "@/assets/mva-accident.jpg";
+import ssdiBenefits from "@/assets/ssdi-benefits.jpg";
 import { Reveal } from "@/components/Reveal";
 
 const caseReviewSchema = z.object({
@@ -34,25 +36,35 @@ const caseReviewSchema = z.object({
 const nav = [
   { label: "Home", href: "#top" },
   { label: "About Us", href: "#about" },
+  { label: "Practice Areas", href: "#practice-areas" },
   { label: "Frequently Asked Questions", href: "#faq" },
-  { label: "Active Lawsuits", href: "#lawsuits" },
   { label: "Contact Us", href: "#contact" },
 ];
 
-const lawsuits = [
-  { t: "Rideshare Abuse", d: "Assault, harassment, and negligence claims involving Uber and Lyft drivers." },
-  { t: "Roblox Abuse", d: "Investigations into online exploitation and grooming of minors on gaming platforms." },
-  { t: "Defective Medications", d: "Injuries caused by unsafe prescription drugs and undisclosed side effects." },
-  { t: "Medical Device Failure", d: "Claims involving implants, catheters, and surgical hardware defects." },
-  { t: "Toxic Exposure", d: "Harm from contaminated water, industrial chemicals, and hazardous products." },
-  { t: "Manufacturer Negligence", d: "Design defects and inadequate warnings by product manufacturers." },
+const practiceAreas = [
+  {
+    t: "Motor Vehicle Accidents",
+    tag: "MVA",
+    img: mvaAccident,
+    alt: "Damaged vehicle after a car accident on a city street",
+    d: "Injured in a car, truck, motorcycle, or rideshare crash caused by someone else's negligence? You may be entitled to compensation for medical bills, lost wages, and pain and suffering.",
+    points: ["Rear-end, head-on, and intersection collisions", "Uninsured and hit-and-run drivers", "Trucking and commercial vehicle crashes"],
+  },
+  {
+    t: "Social Security Disability",
+    tag: "SSDI",
+    img: ssdiBenefits,
+    alt: "Hands resting on a walking cane beside benefit paperwork",
+    d: "Unable to work because of a serious medical condition? If your SSDI claim was denied or you're applying for the first time, an experienced advocate can fight for the benefits you earned.",
+    points: ["Initial applications and denied claims", "Appeals and disability hearings", "No fee unless you win benefits"],
+  },
 ];
 
 const eligibility = [
-  "You or a loved one suffered a serious injury connected to a product, drug, or service",
-  "The incident involved a company, manufacturer, or platform named in an active investigation",
-  "You received a diagnosis or documented harm from a medical professional",
-  "The event occurred within the past several years and you have supporting records",
+  "You were injured in a motor vehicle accident that was not your fault, or",
+  "You cannot work because of a physical or mental condition expected to last 12 months or more",
+  "You sought medical treatment or received a diagnosis from a medical professional",
+  "The accident or disability began within the applicable time limits in your state",
 ];
 
 const receive = [
@@ -63,10 +75,10 @@ const receive = [
 ];
 
 const faqs = [
-  { q: "How much does it cost to speak with an attorney?", a: "Nothing. Every case review is free, confidential, and carries no obligation to proceed." },
-  { q: "How long do I have to file a claim?", a: "Statutes of limitations vary by state and claim type. The sooner you speak with a qualified attorney, the more options you preserve." },
+  { q: "How much does it cost to speak with an attorney?", a: "Nothing. Every case review is free, confidential, and carries no obligation to proceed. Most MVA and SSDI attorneys work on contingency - you pay nothing unless you win." },
+  { q: "My SSDI claim was already denied. Can you still help?", a: "Yes. Most initial applications are denied, and many people win benefits on appeal. Strict deadlines apply, so request a review as soon as possible after a denial." },
+  { q: "How long do I have to file an accident claim?", a: "Statutes of limitations vary by state, often one to three years from the date of the accident. The sooner you speak with a qualified attorney, the more options you preserve." },
   { q: "Will my information be shared?", a: "Your submission is reviewed only by our intake team and the participating law firms handling your matter." },
-  { q: "What if my case does not qualify?", a: "We will tell you honestly and, when possible, point you toward other resources at no cost." },
 ];
 
 export default function Index() {
@@ -190,19 +202,19 @@ export default function Index() {
               Free · Confidential Case Review
             </div>
             <h1 className="font-serif text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
-              Mass Tort & Personal Injury Investigation
+              Injured in an Accident or Unable to Work?
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
-              Injured by a defective product, medication, or the negligence of a major company?
-              You may qualify for financial compensation through an ongoing lawsuit or individual claim.
-              Speak with a qualified attorney - at no cost and no obligation.
+              We connect people hurt in motor vehicle accidents and those fighting for Social Security
+              Disability benefits with experienced attorneys. Find out what your case may be worth -
+              free, confidential, and with no obligation.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]">
                 <a href="#contact">Check If You Qualify</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-navy transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]">
-                <a href="#lawsuits">View Active Lawsuits</a>
+                <a href="#practice-areas">View Practice Areas</a>
               </Button>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-6 text-xs text-primary-foreground/70">
@@ -218,17 +230,17 @@ export default function Index() {
       <section className="border-b border-border">
         <div className="container max-w-4xl py-16 text-center">
           <Reveal as="h2" className="font-serif text-2xl font-black text-navy sm:text-3xl">
-            Justice for Victims of Negligence and Corporate Misconduct
+            Two Ways We Help You Get What You Deserve
           </Reveal>
           <Reveal delay={100} as="p" className="mt-5 text-base leading-relaxed text-muted-foreground">
-            Over the past few years, alarming reports have surfaced of consumers being <strong className="text-navy">harmed by defective drugs,
-            unsafe medical devices, and dangerous consumer products</strong> across the United States. If you or someone you
-            love was injured, you may be entitled to <strong className="text-navy">significant compensation</strong> through
-            an ongoing <strong className="text-navy">mass tort or individual lawsuit.</strong>
+            Whether you were <strong className="text-navy">hurt in a crash</strong> that wasn't your fault or you're
+            <strong className="text-navy"> too sick or injured to keep working</strong>, the system is stacked against
+            individuals. Insurance companies and government agencies have teams of professionals on their side -
+            <strong className="text-navy"> you deserve the same.</strong>
           </Reveal>
           <Reveal delay={200} className="mt-8">
             <Button asChild className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark uppercase tracking-wider transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]">
-              <a href="#contact">Do You Qualify to Join a Lawsuit?</a>
+              <a href="#contact">Get My Free Case Review</a>
             </Button>
           </Reveal>
         </div>
@@ -246,17 +258,17 @@ export default function Index() {
             className="w-full border border-border object-cover shadow-md"
           />
           <div>
-            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">What's Happening?</h2>
+            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Why You Shouldn't Go It Alone</h2>
             <p className="mt-4 text-muted-foreground">
-              In recent years, multiple <strong className="text-navy">nationwide legal actions</strong> have been filed against major
-              manufacturers, pharmaceutical companies, and digital platforms, alleging:
+              Every day, injured people and disabled workers accept less than they deserve because the other side
+              knows the rules better. Here's what you're up against:
             </p>
             <ul className="mt-5 space-y-2.5 text-sm text-navy">
               {[
-                "Negligent safety testing and quality control",
-                "Failure to warn consumers of known risks",
-                "Inadequate reporting and safety protocols",
-                "Concealment of adverse events and injuries",
+                "Insurance adjusters trained to minimize or deny your accident claim",
+                "Quick settlement offers made before you know the full cost of your injuries",
+                "SSDI applications denied over paperwork errors and missing medical evidence",
+                "Complex appeal deadlines that can permanently end a valid disability claim",
               ].map((i) => (
                 <li key={i} className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" /> {i}
@@ -264,8 +276,8 @@ export default function Index() {
               ))}
             </ul>
             <p className="mt-5 text-muted-foreground">
-              These lawsuits aim to hold companies accountable and provide financial recovery for victims of
-              negligence, defective products, and corporate misconduct.
+              An experienced attorney levels the playing field - gathering evidence, handling deadlines, and
+              negotiating from strength so you can focus on recovery.
             </p>
           </div>
         </div>
@@ -274,7 +286,7 @@ export default function Index() {
       {/* Qualification */}
       <section className="border-b border-border">
         <div className="container max-w-3xl py-16">
-          <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Do You Qualify to Join a Lawsuit?</h2>
+          <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Do You Have a Case?</h2>
           <p className="mt-3 text-sm text-muted-foreground">You may be eligible if:</p>
           <ul className="mt-6 space-y-3">
             {eligibility.map((e) => (
@@ -294,32 +306,39 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Active lawsuits */}
-      <section id="lawsuits" className="border-b border-border bg-surface">
+      {/* Practice areas */}
+      <section id="practice-areas" className="border-b border-border bg-surface">
         <div className="container py-16">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Active Lawsuits & Investigations</h2>
+            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Our Practice Areas</h2>
             <p className="mt-3 text-muted-foreground">
-              Our legal partners are currently accepting claims across the following practice areas.
+              We focus on two areas of law so every case gets the specialized attention it deserves.
             </p>
           </div>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {lawsuits.map((l, i) => {
-              const href = l.t === "Rideshare Abuse" ? "/rideshare-abuse" : "#contact";
-              return (
-                <Reveal key={l.t} delay={i * 60}>
-                  <article className="lift border border-border bg-background p-6 shadow-sm h-full">
-                    <div className="font-serif text-xs font-bold text-brand-red">CASE {String(i + 1).padStart(2, "0")}</div>
-                    <h3 className="mt-2 font-serif text-lg font-bold text-navy">{l.t}</h3>
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            {practiceAreas.map((l, i) => (
+              <Reveal key={l.t} delay={i * 80}>
+                <article className="lift flex h-full flex-col overflow-hidden border border-border bg-background shadow-sm">
+                  <img src={l.img} alt={l.alt} width={1200} height={800} loading="lazy" className="h-52 w-full object-cover sm:h-64" />
+                  <div className="flex flex-1 flex-col p-6 sm:p-8">
+                    <div className="font-serif text-xs font-bold uppercase tracking-[0.2em] text-brand-red">{l.tag}</div>
+                    <h3 className="mt-2 font-serif text-xl font-bold text-navy">{l.t}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
-                    <a href={href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red group">
-                      {l.t === "Rideshare Abuse" ? "Learn more" : "Assess your case"}
+                    <ul className="mt-4 space-y-2 text-sm text-navy">
+                      {l.points.map((p) => (
+                        <li key={p} className="flex items-start gap-2">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" /> {p}
+                        </li>
+                      ))}
+                    </ul>
+                    <a href="#contact" className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red group">
+                      Assess your case
                       <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </a>
-                  </article>
-                </Reveal>
-              );
-            })}
+                  </div>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -434,12 +453,8 @@ export default function Index() {
                     <SelectValue placeholder="- Select -" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="rideshare">Rideshare Abuse</SelectItem>
-                    <SelectItem value="roblox">Roblox / Online Platform Abuse</SelectItem>
-                    <SelectItem value="drug">Defective Medication</SelectItem>
-                    <SelectItem value="device">Medical Device Failure</SelectItem>
-                    <SelectItem value="toxic">Toxic Exposure</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="mva">Motor Vehicle Accident</SelectItem>
+                    <SelectItem value="ssdi">Social Security Disability (SSDI)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -485,8 +500,8 @@ export default function Index() {
           <div>
             <img src={logo} alt="Med Injury Claims" className="h-10 w-auto brightness-0 invert" />
             <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
-              Med Injury Claims helps individuals harmed by dangerous drugs, medical devices, or toxic exposures get connected to
-              trusted legal professionals. We're not a law firm - we're your first step toward justice.
+              Med Injury Claims helps people injured in motor vehicle accidents and those seeking Social Security
+              Disability benefits get connected to trusted legal professionals. We're not a law firm - we're your first step toward justice.
             </p>
           </div>
           <div>
