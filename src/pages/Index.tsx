@@ -258,17 +258,17 @@ export default function Index() {
             className="w-full border border-border object-cover shadow-md"
           />
           <div>
-            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">What's Happening?</h2>
+            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Why You Shouldn't Go It Alone</h2>
             <p className="mt-4 text-muted-foreground">
-              In recent years, multiple <strong className="text-navy">nationwide legal actions</strong> have been filed against major
-              manufacturers, pharmaceutical companies, and digital platforms, alleging:
+              Every day, injured people and disabled workers accept less than they deserve because the other side
+              knows the rules better. Here's what you're up against:
             </p>
             <ul className="mt-5 space-y-2.5 text-sm text-navy">
               {[
-                "Negligent safety testing and quality control",
-                "Failure to warn consumers of known risks",
-                "Inadequate reporting and safety protocols",
-                "Concealment of adverse events and injuries",
+                "Insurance adjusters trained to minimize or deny your accident claim",
+                "Quick settlement offers made before you know the full cost of your injuries",
+                "SSDI applications denied over paperwork errors and missing medical evidence",
+                "Complex appeal deadlines that can permanently end a valid disability claim",
               ].map((i) => (
                 <li key={i} className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" /> {i}
@@ -276,8 +276,8 @@ export default function Index() {
               ))}
             </ul>
             <p className="mt-5 text-muted-foreground">
-              These lawsuits aim to hold companies accountable and provide financial recovery for victims of
-              negligence, defective products, and corporate misconduct.
+              An experienced attorney levels the playing field - gathering evidence, handling deadlines, and
+              negotiating from strength so you can focus on recovery.
             </p>
           </div>
         </div>
