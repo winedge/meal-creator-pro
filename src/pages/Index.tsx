@@ -286,7 +286,7 @@ export default function Index() {
       {/* Qualification */}
       <section className="border-b border-border">
         <div className="container max-w-3xl py-16">
-          <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Do You Qualify to Join a Lawsuit?</h2>
+          <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Do You Have a Case?</h2>
           <p className="mt-3 text-sm text-muted-foreground">You may be eligible if:</p>
           <ul className="mt-6 space-y-3">
             {eligibility.map((e) => (
@@ -306,32 +306,39 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Active lawsuits */}
-      <section id="lawsuits" className="border-b border-border bg-surface">
+      {/* Practice areas */}
+      <section id="practice-areas" className="border-b border-border bg-surface">
         <div className="container py-16">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Active Lawsuits & Investigations</h2>
+            <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Our Practice Areas</h2>
             <p className="mt-3 text-muted-foreground">
-              Our legal partners are currently accepting claims across the following practice areas.
+              We focus on two areas of law so every case gets the specialized attention it deserves.
             </p>
           </div>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {lawsuits.map((l, i) => {
-              const href = l.t === "Rideshare Abuse" ? "/rideshare-abuse" : "#contact";
-              return (
-                <Reveal key={l.t} delay={i * 60}>
-                  <article className="lift border border-border bg-background p-6 shadow-sm h-full">
-                    <div className="font-serif text-xs font-bold text-brand-red">CASE {String(i + 1).padStart(2, "0")}</div>
-                    <h3 className="mt-2 font-serif text-lg font-bold text-navy">{l.t}</h3>
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            {practiceAreas.map((l, i) => (
+              <Reveal key={l.t} delay={i * 80}>
+                <article className="lift flex h-full flex-col overflow-hidden border border-border bg-background shadow-sm">
+                  <img src={l.img} alt={l.alt} width={1200} height={800} loading="lazy" className="h-52 w-full object-cover sm:h-64" />
+                  <div className="flex flex-1 flex-col p-6 sm:p-8">
+                    <div className="font-serif text-xs font-bold uppercase tracking-[0.2em] text-brand-red">{l.tag}</div>
+                    <h3 className="mt-2 font-serif text-xl font-bold text-navy">{l.t}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
-                    <a href={href} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red group">
-                      {l.t === "Rideshare Abuse" ? "Learn more" : "Assess your case"}
+                    <ul className="mt-4 space-y-2 text-sm text-navy">
+                      {l.points.map((p) => (
+                        <li key={p} className="flex items-start gap-2">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" /> {p}
+                        </li>
+                      ))}
+                    </ul>
+                    <a href="#contact" className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red group">
+                      Assess your case
                       <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </a>
-                  </article>
-                </Reveal>
-              );
-            })}
+                  </div>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
