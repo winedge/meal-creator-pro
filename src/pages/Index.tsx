@@ -13,6 +13,8 @@ import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/medinjuryclaims-logo.png";
 import courthouse from "@/assets/courthouse-hero.jpg";
 import consult from "@/assets/consult.jpg";
+import mvaAccident from "@/assets/mva-accident.jpg";
+import ssdiBenefits from "@/assets/ssdi-benefits.jpg";
 import { Reveal } from "@/components/Reveal";
 
 const caseReviewSchema = z.object({
@@ -34,25 +36,35 @@ const caseReviewSchema = z.object({
 const nav = [
   { label: "Home", href: "#top" },
   { label: "About Us", href: "#about" },
+  { label: "Practice Areas", href: "#practice-areas" },
   { label: "Frequently Asked Questions", href: "#faq" },
-  { label: "Active Lawsuits", href: "#lawsuits" },
   { label: "Contact Us", href: "#contact" },
 ];
 
-const lawsuits = [
-  { t: "Rideshare Abuse", d: "Assault, harassment, and negligence claims involving Uber and Lyft drivers." },
-  { t: "Roblox Abuse", d: "Investigations into online exploitation and grooming of minors on gaming platforms." },
-  { t: "Defective Medications", d: "Injuries caused by unsafe prescription drugs and undisclosed side effects." },
-  { t: "Medical Device Failure", d: "Claims involving implants, catheters, and surgical hardware defects." },
-  { t: "Toxic Exposure", d: "Harm from contaminated water, industrial chemicals, and hazardous products." },
-  { t: "Manufacturer Negligence", d: "Design defects and inadequate warnings by product manufacturers." },
+const practiceAreas = [
+  {
+    t: "Motor Vehicle Accidents",
+    tag: "MVA",
+    img: mvaAccident,
+    alt: "Damaged vehicle after a car accident on a city street",
+    d: "Injured in a car, truck, motorcycle, or rideshare crash caused by someone else's negligence? You may be entitled to compensation for medical bills, lost wages, and pain and suffering.",
+    points: ["Rear-end, head-on, and intersection collisions", "Uninsured and hit-and-run drivers", "Trucking and commercial vehicle crashes"],
+  },
+  {
+    t: "Social Security Disability",
+    tag: "SSDI",
+    img: ssdiBenefits,
+    alt: "Hands resting on a walking cane beside benefit paperwork",
+    d: "Unable to work because of a serious medical condition? If your SSDI claim was denied or you're applying for the first time, an experienced advocate can fight for the benefits you earned.",
+    points: ["Initial applications and denied claims", "Appeals and disability hearings", "No fee unless you win benefits"],
+  },
 ];
 
 const eligibility = [
-  "You or a loved one suffered a serious injury connected to a product, drug, or service",
-  "The incident involved a company, manufacturer, or platform named in an active investigation",
-  "You received a diagnosis or documented harm from a medical professional",
-  "The event occurred within the past several years and you have supporting records",
+  "You were injured in a motor vehicle accident that was not your fault, or",
+  "You cannot work because of a physical or mental condition expected to last 12 months or more",
+  "You sought medical treatment or received a diagnosis from a medical professional",
+  "The accident or disability began within the applicable time limits in your state",
 ];
 
 const receive = [
