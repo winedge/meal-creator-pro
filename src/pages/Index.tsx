@@ -214,7 +214,7 @@ export default function Index() {
                 <a href="#contact">Check If You Qualify</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-navy transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]">
-                <a href="#lawsuits">View Active Lawsuits</a>
+                <a href="#practice-areas">View Practice Areas</a>
               </Button>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-6 text-xs text-primary-foreground/70">
@@ -230,17 +230,17 @@ export default function Index() {
       <section className="border-b border-border">
         <div className="container max-w-4xl py-16 text-center">
           <Reveal as="h2" className="font-serif text-2xl font-black text-navy sm:text-3xl">
-            Justice for Victims of Negligence and Corporate Misconduct
+            Two Ways We Help You Get What You Deserve
           </Reveal>
           <Reveal delay={100} as="p" className="mt-5 text-base leading-relaxed text-muted-foreground">
-            Over the past few years, alarming reports have surfaced of consumers being <strong className="text-navy">harmed by defective drugs,
-            unsafe medical devices, and dangerous consumer products</strong> across the United States. If you or someone you
-            love was injured, you may be entitled to <strong className="text-navy">significant compensation</strong> through
-            an ongoing <strong className="text-navy">mass tort or individual lawsuit.</strong>
+            Whether you were <strong className="text-navy">hurt in a crash</strong> that wasn't your fault or you're
+            <strong className="text-navy"> too sick or injured to keep working</strong>, the system is stacked against
+            individuals. Insurance companies and government agencies have teams of professionals on their side -
+            <strong className="text-navy"> you deserve the same.</strong>
           </Reveal>
           <Reveal delay={200} className="mt-8">
             <Button asChild className="bg-brand-red text-primary-foreground hover:bg-brand-red-dark uppercase tracking-wider transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]">
-              <a href="#contact">Do You Qualify to Join a Lawsuit?</a>
+              <a href="#contact">Get My Free Case Review</a>
             </Button>
           </Reveal>
         </div>
