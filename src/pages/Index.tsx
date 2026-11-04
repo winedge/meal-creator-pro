@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { initAdTracking, trackLeadConversion } from "@/lib/adsTracking";
 import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2, Check } from "lucide-react";
 import { z } from "zod";
@@ -15,6 +16,7 @@ import courthouse from "@/assets/courthouse-hero.jpg";
 import consult from "@/assets/consult.jpg";
 import mvaAccident from "@/assets/mva-accident.jpg";
 import ssdiBenefits from "@/assets/ssdi-benefits.jpg";
+import rideshareHero from "@/assets/rideshare-hero.jpg";
 import { Reveal } from "@/components/Reveal";
 
 const caseReviewSchema = z.object({
