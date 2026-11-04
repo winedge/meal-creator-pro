@@ -516,8 +516,9 @@ export default function Index() {
           <div>
             <img src={logo} alt="Med Injury Claims" className="h-10 w-auto brightness-0 invert" />
             <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
-              Med Injury Claims helps people injured in motor vehicle accidents and those seeking Social Security
-              Disability benefits get connected to trusted legal professionals. We're not a law firm - we're your first step toward justice.
+              Med Injury Claims helps people injured in motor vehicle accidents, rideshare abuse survivors, and those
+              seeking Social Security Disability benefits get connected to trusted legal professionals. We're not a law
+              firm - we're your first step toward justice.
             </p>
           </div>
           <div>

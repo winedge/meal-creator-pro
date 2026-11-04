@@ -15,8 +15,8 @@ import logo from "@/assets/medinjuryclaims-logo.png";
 const CLAIM_LABELS: Record<string, string> = {
   mva: "Motor Vehicle Accident",
   ssdi: "Social Security Disability",
-  // Legacy claim types kept so older submissions still display correctly
   rideshare: "Rideshare Abuse",
+  // Legacy claim types kept so older submissions still display correctly
   roblox: "Roblox / Online Platform",
   drug: "Defective Medication",
   device: "Medical Device Failure",
