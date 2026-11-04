@@ -10,6 +10,7 @@ import AdminCRM from "./pages/AdminCRM";
 import AdminSubmission from "./pages/AdminSubmission";
 import AdminSettings from "./pages/AdminSettings";
 import Privacy from "./pages/Privacy";
+import RideshareAbuse from "./pages/RideshareAbuse";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/rideshare-abuse" element={<RideshareAbuse />} />
           <Route path="/admin/login" element={<AdminAuth />} />
           <Route path="/admin" element={<AdminCRM />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
