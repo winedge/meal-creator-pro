@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { initAdTracking, trackLeadConversion } from "@/lib/adsTracking";
 import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2, Check } from "lucide-react";
 import { z } from "zod";
@@ -15,6 +16,7 @@ import courthouse from "@/assets/courthouse-hero.jpg";
 import consult from "@/assets/consult.jpg";
 import mvaAccident from "@/assets/mva-accident.jpg";
 import ssdiBenefits from "@/assets/ssdi-benefits.jpg";
+import rideshareHero from "@/assets/rideshare-hero.jpg";
 import { Reveal } from "@/components/Reveal";
 
 const caseReviewSchema = z.object({
@@ -47,6 +49,7 @@ const practiceAreas = [
     tag: "MVA",
     img: mvaAccident,
     alt: "Damaged vehicle after a car accident on a city street",
+    href: "#contact",
     d: "Injured in a car, truck, motorcycle, or rideshare crash caused by someone else's negligence? You may be entitled to compensation for medical bills, lost wages, and pain and suffering.",
     points: ["Rear-end, head-on, and intersection collisions", "Uninsured and hit-and-run drivers", "Trucking and commercial vehicle crashes"],
   },
@@ -55,13 +58,24 @@ const practiceAreas = [
     tag: "SSDI",
     img: ssdiBenefits,
     alt: "Hands resting on a walking cane beside benefit paperwork",
+    href: "#contact",
     d: "Unable to work because of a serious medical condition? If your SSDI claim was denied or you're applying for the first time, an experienced advocate can fight for the benefits you earned.",
     points: ["Initial applications and denied claims", "Appeals and disability hearings", "No fee unless you win benefits"],
+  },
+  {
+    t: "Rideshare Abuse",
+    tag: "RIDE",
+    img: rideshareHero,
+    alt: "Rideshare vehicle parked on a city street at night",
+    href: "/rideshare-abuse",
+    d: "Sexually assaulted, harassed, or abused by an Uber or Lyft driver? Survivors across the country are holding rideshare companies accountable. Find out if you qualify.",
+    points: ["Assault or harassment by a rideshare driver", "Incidents during Uber and Lyft rides", "Free, confidential, survivor-focused review"],
   },
 ];
 
 const eligibility = [
   "You were injured in a motor vehicle accident that was not your fault, or",
+  "You were assaulted, harassed, or abused by an Uber or Lyft driver, or",
   "You cannot work because of a physical or mental condition expected to last 12 months or more",
   "You sought medical treatment or received a diagnosis from a medical professional",
   "The accident or disability began within the applicable time limits in your state",
@@ -230,10 +244,11 @@ export default function Index() {
       <section className="border-b border-border">
         <div className="container max-w-4xl py-16 text-center">
           <Reveal as="h2" className="font-serif text-2xl font-black text-navy sm:text-3xl">
-            Two Ways We Help You Get What You Deserve
+            Three Ways We Help You Get What You Deserve
           </Reveal>
           <Reveal delay={100} as="p" className="mt-5 text-base leading-relaxed text-muted-foreground">
-            Whether you were <strong className="text-navy">hurt in a crash</strong> that wasn't your fault or you're
+            Whether you were <strong className="text-navy">hurt in a crash</strong> that wasn't your fault,{" "}
+            <strong className="text-navy">abused by a rideshare driver</strong>, or you're{" "}
             <strong className="text-navy"> too sick or injured to keep working</strong>, the system is stacked against
             individuals. Insurance companies and government agencies have teams of professionals on their side -
             <strong className="text-navy"> you deserve the same.</strong>
@@ -312,10 +327,10 @@ export default function Index() {
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Our Practice Areas</h2>
             <p className="mt-3 text-muted-foreground">
-              We focus on two areas of law so every case gets the specialized attention it deserves.
+              We focus on three areas of law so every case gets the specialized attention it deserves.
             </p>
           </div>
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {practiceAreas.map((l, i) => (
               <Reveal key={l.t} delay={i * 80}>
                 <article className="lift flex h-full flex-col overflow-hidden border border-border bg-background shadow-sm">
@@ -331,10 +346,10 @@ export default function Index() {
                         </li>
                       ))}
                     </ul>
-                    <a href="#contact" className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red group">
-                      Assess your case
+                    <Link to={l.href} className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-brand-red group">
+                      {l.href === "#contact" ? "Assess your case" : "Learn about rideshare abuse"}
                       <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </a>
+                    </Link>
                   </div>
                 </article>
               </Reveal>
@@ -455,6 +470,7 @@ export default function Index() {
                   <SelectContent>
                     <SelectItem value="mva">Motor Vehicle Accident</SelectItem>
                     <SelectItem value="ssdi">Social Security Disability (SSDI)</SelectItem>
+                    <SelectItem value="rideshare">Rideshare Abuse</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -500,8 +516,9 @@ export default function Index() {
           <div>
             <img src={logo} alt="Med Injury Claims" className="h-10 w-auto brightness-0 invert" />
             <p className="mt-4 text-sm leading-relaxed text-primary-foreground/70">
-              Med Injury Claims helps people injured in motor vehicle accidents and those seeking Social Security
-              Disability benefits get connected to trusted legal professionals. We're not a law firm - we're your first step toward justice.
+              Med Injury Claims helps people injured in motor vehicle accidents, rideshare abuse survivors, and those
+              seeking Social Security Disability benefits get connected to trusted legal professionals. We're not a law
+              firm - we're your first step toward justice.
             </p>
           </div>
           <div>
