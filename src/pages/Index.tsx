@@ -49,6 +49,7 @@ const practiceAreas = [
     tag: "MVA",
     img: mvaAccident,
     alt: "Damaged vehicle after a car accident on a city street",
+    href: "#contact",
     d: "Injured in a car, truck, motorcycle, or rideshare crash caused by someone else's negligence? You may be entitled to compensation for medical bills, lost wages, and pain and suffering.",
     points: ["Rear-end, head-on, and intersection collisions", "Uninsured and hit-and-run drivers", "Trucking and commercial vehicle crashes"],
   },
@@ -57,8 +58,18 @@ const practiceAreas = [
     tag: "SSDI",
     img: ssdiBenefits,
     alt: "Hands resting on a walking cane beside benefit paperwork",
+    href: "#contact",
     d: "Unable to work because of a serious medical condition? If your SSDI claim was denied or you're applying for the first time, an experienced advocate can fight for the benefits you earned.",
     points: ["Initial applications and denied claims", "Appeals and disability hearings", "No fee unless you win benefits"],
+  },
+  {
+    t: "Rideshare Abuse",
+    tag: "RIDE",
+    img: rideshareHero,
+    alt: "Rideshare vehicle parked on a city street at night",
+    href: "/rideshare-abuse",
+    d: "Sexually assaulted, harassed, or abused by an Uber or Lyft driver? Survivors across the country are holding rideshare companies accountable. Find out if you qualify.",
+    points: ["Assault or harassment by a rideshare driver", "Incidents during Uber and Lyft rides", "Free, confidential, survivor-focused review"],
   },
 ];
 
