@@ -75,6 +75,7 @@ const practiceAreas = [
 
 const eligibility = [
   "You were injured in a motor vehicle accident that was not your fault, or",
+  "You were assaulted, harassed, or abused by an Uber or Lyft driver, or",
   "You cannot work because of a physical or mental condition expected to last 12 months or more",
   "You sought medical treatment or received a diagnosis from a medical professional",
   "The accident or disability began within the applicable time limits in your state",
@@ -243,10 +244,11 @@ export default function Index() {
       <section className="border-b border-border">
         <div className="container max-w-4xl py-16 text-center">
           <Reveal as="h2" className="font-serif text-2xl font-black text-navy sm:text-3xl">
-            Two Ways We Help You Get What You Deserve
+            Three Ways We Help You Get What You Deserve
           </Reveal>
           <Reveal delay={100} as="p" className="mt-5 text-base leading-relaxed text-muted-foreground">
-            Whether you were <strong className="text-navy">hurt in a crash</strong> that wasn't your fault or you're
+            Whether you were <strong className="text-navy">hurt in a crash</strong> that wasn't your fault,{" "}
+            <strong className="text-navy">abused by a rideshare driver</strong>, or you're{" "}
             <strong className="text-navy"> too sick or injured to keep working</strong>, the system is stacked against
             individuals. Insurance companies and government agencies have teams of professionals on their side -
             <strong className="text-navy"> you deserve the same.</strong>
@@ -325,10 +327,10 @@ export default function Index() {
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-serif text-2xl font-black text-navy sm:text-3xl">Our Practice Areas</h2>
             <p className="mt-3 text-muted-foreground">
-              We focus on two areas of law so every case gets the specialized attention it deserves.
+              We focus on three areas of law so every case gets the specialized attention it deserves.
             </p>
           </div>
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {practiceAreas.map((l, i) => (
               <Reveal key={l.t} delay={i * 80}>
                 <article className="lift flex h-full flex-col overflow-hidden border border-border bg-background shadow-sm">
