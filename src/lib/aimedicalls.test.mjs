@@ -10,7 +10,11 @@ test('AIMedicalls receives the requested field names and human-readable claim/st
   assert.equal(payload.trustedform_cert_url, 'https://cert.trustedform.com/example');
   assert.equal(payload.phone, '(415) 555-1234');
   assert.equal(payload.consent, true);
-  assert.equal(Object.keys(payload).length, 16);
+  assert.equal(Object.keys(payload).length, 17);
+});
+test('AIMedicalls receives the submission ID as external_id for callback matching', () => {
+  const id = '3f4b13e2-42c5-4f22-bfcc-3b531aef8c15';
+  assert.equal(leadPayload({ id }).external_id, id);
 });
 test('delivery begins immediately with retry attempts inside the requested two-minute window', () => {
   assert.equal(RETRY_DELAYS_MS[0], 0);

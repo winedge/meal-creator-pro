@@ -3,6 +3,7 @@ const claims = { mva: 'Motor Vehicle Accident', ssdi: 'Social Security Disabilit
 const states = { CA: 'California', TX: 'Texas', NY: 'New York', FL: 'Florida', PA: 'Pennsylvania', IL: 'Illinois', OH: 'Ohio', GA: 'Georgia', NC: 'North Carolina', MI: 'Michigan' };
 export function leadPayload(row) {
   return {
+    external_id: row.id,
     first_name: row.first_name, last_name: row.last_name, email: row.email, phone: row.phone,
     address: row.address ?? '', city: row.city ?? '', state: row.state ?? '', zip: row.zip,
     claim_type: claims[row.claim_type] ?? row.claim_type,
