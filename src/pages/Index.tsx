@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { initAdTracking, trackLeadConversion } from "@/lib/adsTracking";
+import { INTAKE_CONSENT_TEXT } from "@/lib/intakeConsent";
 import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2, Check } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -92,7 +93,7 @@ const faqs = [
   { q: "How much does it cost to speak with an attorney?", a: "Nothing. Every case review is free, confidential, and carries no obligation to proceed. Most MVA and SSDI attorneys work on contingency - you pay nothing unless you win." },
   { q: "My SSDI claim was already denied. Can you still help?", a: "Yes. Most initial applications are denied, and many people win benefits on appeal. Strict deadlines apply, so request a review as soon as possible after a denial." },
   { q: "How long do I have to file an accident claim?", a: "Statutes of limitations vary by state, often one to three years from the date of the accident. The sooner you speak with a qualified attorney, the more options you preserve." },
-  { q: "Will my information be shared?", a: "Your submission is reviewed only by our intake team and the participating law firms handling your matter." },
+  { q: "Will my information be shared?", a: "Your submission is shared with our intake team, AIMedicalls as our intake service provider, and the participating law firms handling your matter." },
 ];
 
 export default function Index() {
@@ -134,7 +135,7 @@ export default function Index() {
     const trustedFormPingUrl = String(fd.get("xxTrustedFormPingUrl") ?? "");
 
     setSubmitting(true);
-    const { error } = await supabase.from("submissions").insert({
+    const { error } = await supabase.functions.invoke("submit-lead", { body: {
       first_name: parsed.data.firstName,
       last_name: parsed.data.lastName,
       email: parsed.data.email,
@@ -147,11 +148,12 @@ export default function Index() {
       incident_state: parsed.data.incidentState || null,
       description: parsed.data.description || null,
       consent: parsed.data.consent,
+      consent_text: INTAKE_CONSENT_TEXT,
       trusted_form_cert_url: trustedFormCertUrl || null,
       trusted_form_ping_url: trustedFormPingUrl || null,
       page_url: window.location.href,
       user_agent: navigator.userAgent,
-    });
+    } });
     setSubmitting(false);
 
     if (error) {
@@ -494,10 +496,7 @@ export default function Index() {
               <div className="sm:col-span-2 flex items-start gap-3 pt-2">
                 <Checkbox id="consent" name="consent" required className="mt-1" />
                 <Label htmlFor="consent" className="text-xs font-normal leading-relaxed text-muted-foreground">
-                  By checking the box, you agree to be contacted about your potential case or promotional legal offers sent by or on
-                  behalf of Med Injury Claims and/or participating law firms. You may receive live calls, automated calls, emails, or
-                  text messages at the phone number provided above even if you are on a national or state "Do Not Call" list. Consent
-                  is not a condition of any purchase.
+                  {INTAKE_CONSENT_TEXT}
                 </Label>
               </div>
             </div>

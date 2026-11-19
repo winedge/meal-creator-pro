@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Forward new leads securely to AIMedicalls immediately, preserving CRM records and exact consent wording; verify delivery.
+- [x] Forward new leads securely to AIMedicalls immediately, preserving CRM records and exact consent wording; API acceptance verified with a test lead (202).
 
 - [x] Meta Pixel + Google Ads conversion tracking, manual config (no connectors)
   - [x] Admin → Ad Tracking tab for Meta Pixel ID, CAPI token, Google AW-ID + label, master switch

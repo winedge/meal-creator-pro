@@ -8,6 +8,13 @@
       "when": 1793480517279,
       "tag": "0000_create_ad_settings_tables",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795063261366,
+      "tag": "0001_aimedicalls_delivery",
+      "breakpoints": true
     }
   ]
 }

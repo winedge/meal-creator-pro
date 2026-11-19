@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { initAdTracking, trackLeadConversion } from "@/lib/adsTracking";
+import { INTAKE_CONSENT_TEXT } from "@/lib/intakeConsent";
 import { Phone, Mail, ChevronRight, ShieldCheck, Lock, Scale, Clock, CheckCircle2, Check, ArrowLeft } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -48,7 +49,7 @@ const faqs = [
   { q: "What counts as rideshare abuse?", a: "Any sexual assault, sexual battery, harassment, or improper physical contact by a rideshare driver while you were a passenger, or in the course of being picked up or dropped off. Every case is different - a confidential review is the fastest way to find out where you stand." },
   { q: "Can I file a claim even if I didn't report it to the police at the time?", a: "In many cases, yes. A police report strengthens a claim but is not always required. Request a free review as soon as possible so important evidence and deadlines can be preserved." },
   { q: "How much does it cost to speak with an attorney?", a: "Nothing. Every case review is free, confidential, and carries no obligation to proceed. Most attorneys handling these cases work on contingency - you pay nothing unless you win." },
-  { q: "Will my information be shared?", a: "Your submission is reviewed only by our intake team and the participating law firms handling your matter." },
+  { q: "Will my information be shared?", a: "Your submission is shared with our intake team, AIMedicalls as our intake service provider, and the participating law firms handling your matter." },
 ];
 
 export default function RideshareAbuse() {
@@ -88,7 +89,7 @@ export default function RideshareAbuse() {
     const trustedFormPingUrl = String(fd.get("xxTrustedFormPingUrl") ?? "");
 
     setSubmitting(true);
-    const { error } = await supabase.from("submissions").insert({
+    const { error } = await supabase.functions.invoke("submit-lead", { body: {
       first_name: parsed.data.firstName,
       last_name: parsed.data.lastName,
       email: parsed.data.email,
@@ -101,11 +102,12 @@ export default function RideshareAbuse() {
       incident_state: parsed.data.incidentState || null,
       description: parsed.data.description || null,
       consent: parsed.data.consent,
+      consent_text: INTAKE_CONSENT_TEXT,
       trusted_form_cert_url: trustedFormCertUrl || null,
       trusted_form_ping_url: trustedFormPingUrl || null,
       page_url: window.location.href,
       user_agent: navigator.userAgent,
-    });
+    } });
     setSubmitting(false);
 
     if (error) {
@@ -381,10 +383,7 @@ export default function RideshareAbuse() {
               <div className="sm:col-span-2 flex items-start gap-3 pt-2">
                 <Checkbox id="consent" name="consent" required className="mt-1" />
                 <Label htmlFor="consent" className="text-xs font-normal leading-relaxed text-muted-foreground">
-                  By checking the box, you agree to be contacted about your potential case or promotional legal offers sent by or on
-                  behalf of Med Injury Claims and/or participating law firms. You may receive live calls, automated calls, emails, or
-                  text messages at the phone number provided above even if you are on a national or state "Do Not Call" list. Consent
-                  is not a condition of any purchase.
+                  {INTAKE_CONSENT_TEXT}
                 </Label>
               </div>
             </div>

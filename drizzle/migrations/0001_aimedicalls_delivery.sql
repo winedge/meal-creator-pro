@@ -1,0 +1,1 @@
+ALTER TABLE public.submissions ADD COLUMN consent_text text, ADD COLUMN ip_address text, ADD COLUMN aimedicalls_status text, ADD COLUMN aimedicalls_attempts integer NOT NULL DEFAULT 0, ADD COLUMN aimedicalls_http_status integer, ADD COLUMN aimedicalls_sent_at timestamptz;

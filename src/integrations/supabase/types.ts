@@ -62,15 +62,21 @@ export type Database = {
       submissions: {
         Row: {
           address: string | null
+          aimedicalls_attempts: number
+          aimedicalls_http_status: number | null
+          aimedicalls_sent_at: string | null
+          aimedicalls_status: string | null
           city: string | null
           claim_type: string
           consent: boolean
+          consent_text: string | null
           created_at: string
           description: string | null
           email: string
           first_name: string
           id: string
           incident_state: string | null
+          ip_address: string | null
           last_name: string
           notes: string | null
           page_url: string | null
@@ -85,15 +91,21 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          aimedicalls_attempts?: number
+          aimedicalls_http_status?: number | null
+          aimedicalls_sent_at?: string | null
+          aimedicalls_status?: string | null
           city?: string | null
           claim_type: string
           consent?: boolean
+          consent_text?: string | null
           created_at?: string
           description?: string | null
           email: string
           first_name: string
           id?: string
           incident_state?: string | null
+          ip_address?: string | null
           last_name: string
           notes?: string | null
           page_url?: string | null
@@ -108,15 +120,21 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          aimedicalls_attempts?: number
+          aimedicalls_http_status?: number | null
+          aimedicalls_sent_at?: string | null
+          aimedicalls_status?: string | null
           city?: string | null
           claim_type?: string
           consent?: boolean
+          consent_text?: string | null
           created_at?: string
           description?: string | null
           email?: string
           first_name?: string
           id?: string
           incident_state?: string | null
+          ip_address?: string | null
           last_name?: string
           notes?: string | null
           page_url?: string | null

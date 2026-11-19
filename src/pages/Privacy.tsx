@@ -14,7 +14,7 @@ export default function Privacy() {
 
       <main className="container max-w-3xl py-12">
         <h1 className="font-serif text-3xl font-black text-navy">Privacy Policy</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Last updated: October 2026</p>
+        <p className="mt-2 text-sm text-muted-foreground">Last updated: November 2026</p>
 
         <div className="mt-8 space-y-8 text-sm leading-relaxed text-foreground/90">
           <section>
@@ -23,7 +23,7 @@ export default function Privacy() {
               When you submit a case review form, we collect the details you provide: your name, email address,
               phone number, address, city, state, zip code, claim type, and your description of the incident,
               together with your consent record. We also record the page you submitted from, your browser's user
-              agent, and a TrustedForm certificate (provided by ActiveProspect) that documents your form session.
+              agent, IP address, exact consent wording, and a TrustedForm certificate (provided by ActiveProspect) that documents your form session.
             </p>
           </section>
 
@@ -31,7 +31,8 @@ export default function Privacy() {
             <h2 className="font-serif text-lg font-bold text-navy">How we use it</h2>
             <p className="mt-2">
               We use your submission to review your potential claim and to connect you with a participating law
-              firm. Your information is shared only with our intake team and the attorneys handling your matter.
+              firm. Your information is shared with our intake team, the attorneys handling your matter, and
+              AIMedicalls, our intake service provider, to process your request and facilitate the contact you consented to.
             </p>
           </section>
 
